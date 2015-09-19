@@ -13,4 +13,4 @@ These libraries are production-ready, and can use unconditionly:
 
 **IMPORTANT** Other project is under development, do not use in production environment. Any pull requests are welcome.
 
-Join in our team (Wuhan EasyLearning Co.Ltd) by visit [http://www.bzbx.com.cn/jobs]
+Join in our team (Wuhan EasyLearning Co.Ltd) by visit http://www.bzbx.com.cn/jobs/
