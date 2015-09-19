@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ceeji.Imaging</name>
+    </assembly>
+    <members>
+        <member name="T:Ceeji.Imaging.WebPHelper">
+            <summary>
+            提供对 WebP 格式的跨平台支持。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Imaging.WebPHelper.Encode(System.Byte[],System.Int32)">
+            <summary>
+            将指定的受支持图像数据转换为 WebP 流。
+            </summary>
+            <param name="input">输入流</param>
+            <param name="output">输出流</param>
+            <param name="quality">品质，0 - 100，或 -1 代表无损压缩。</param>
+        </member>
+        <member name="M:Ceeji.Imaging.WebPHelper.Encode(System.IO.Stream,System.IO.Stream,System.Int32)">
+            <summary>
+            将指定的受支持图像数据转换为 WebP 流。
+            </summary>
+            <param name="input">输入流</param>
+            <param name="output">输出流</param>
+            <param name="quality">品质，0 - 100，或 -1 代表无损压缩。</param>
+        </member>
+        <member name="M:Ceeji.Imaging.WebPHelper.Decode(System.IO.Stream,System.IO.Stream,System.Drawing.Imaging.ImageFormat,System.Int32)">
+            <summary>
+            将 WebP 流转换为指定的图片格式。
+            </summary>
+            <param name="input">输入流</param>
+            <param name="output">输出流</param>
+            <param name="format">输出的图片格式</param>
+            <param name="jpegQuality">品质，0 - 100，或 -1 代表无损压缩。仅在输出格式为 JPEG 时有效。</param>
+        </member>
+    </members>
+</doc>

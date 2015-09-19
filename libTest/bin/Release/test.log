@@ -1,0 +1,41 @@
+
+
+
+
+
+[Debug] [2015/5/22 23:29:38:949] [libTest.exe] [Program] [Main] debug 
+[Warning] [2015/5/22 23:30:24:603] [libTest.exe] [Program] [Main] w 
+[Error] [2015/5/22 23:30:24:603] [libTest.exe] [Program] [Main] err 
+[Fatal] [2015/5/22 23:30:24:603] [libTest.exe] [Program] [Main] 发生致命错误，程序即将退出。 
+==== Exception Descreption ====
+引发类型为“System.Exception”的异常。
+<< StackTrace >>
+
+[Info] [2015/5/22 23:30:24:604] [libTest.exe] [Program] [Main] info 
+[Debug] [2015- 5-22 23:32:45: 26] [libTest.exe] [Program] [Main] debug 
+[Warning] [2015- 5-22 23:32:45: 29] [libTest.exe] [Program] [Main] w 
+[Error] [2015- 5-22 23:32:45: 29] [libTest.exe] [Program] [Main] err 
+[Fatal] [2015- 5-22 23:32:45: 30] [libTest.exe] [Program] [Main] 发生致命错误，程序即将退出。 
+==== Exception Descreption ====
+引发类型为“System.Exception”的异常。
+<< StackTrace >>
+
+[Info] [2015- 5-22 23:32:45: 31] [libTest.exe] [Program] [Main] info 
+[  Debug] [2015-05-22 23:34:26:356] [libTest.exe] [Program] [Main] debug 
+[Warning] [2015-05-22 23:34:26:361] [libTest.exe] [Program] [Main] w 
+[  Error] [2015-05-22 23:34:26:362] [libTest.exe] [Program] [Main] err 
+[  Fatal] [2015-05-22 23:34:26:362] [libTest.exe] [Program] [Main] 发生致命错误，程序即将退出。 
+==== Exception Descreption ====
+引发类型为“System.Exception”的异常。
+<< StackTrace >>
+
+[   Info] [2015-05-22 23:34:26:363] [libTest.exe] [Program] [Main] info 
+[  Debug]	[2015-05-22 23:35:16:695]	[libTest.exe]	[Program]	[Main]	debug	
+[Warning]	[2015-05-22 23:35:16:697]	[libTest.exe]	[Program]	[Main]	w	
+[  Error]	[2015-05-22 23:35:16:697]	[libTest.exe]	[Program]	[Main]	err	
+[  Fatal]	[2015-05-22 23:35:16:697]	[libTest.exe]	[Program]	[Main]	发生致命错误，程序即将退出。	
+==== Exception Descreption ====
+引发类型为“System.Exception”的异常。
+<< StackTrace >>
+
+[   Info]	[2015-05-22 23:35:16:698]	[libTest.exe]	[Program]	[Main]	info	

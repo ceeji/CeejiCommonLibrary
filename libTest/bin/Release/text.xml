@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Config Key="TestingGroup">
+    <Value xsi:type="TestingGroup">
+      <Points>
+        <TestingPoint>
+          <Type>libTest.test1, libTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
+          <Config />
+          <Times>2</Times>
+          <Timeout>-1</Timeout>
+        </TestingPoint>
+      </Points>
+      <IntervalSeconds>0</IntervalSeconds>
+    </Value>
+  </Config>
+  <Config Key="APIHost">
+    <Value xsi:type="xsd:string">http://apiv2.bzbx.com.cn/</Value>
+  </Config>
+  <Config Key="___extraTypes___">
+    <Value xsi:type="ArrayOfString">
+      <string>Ceeji.Testing.Configuration.TestingGroup</string>
+    </Value>
+  </Config>
+</Configuration>

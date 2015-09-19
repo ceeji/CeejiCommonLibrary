@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14C85BB2-684D-4832-A508-CB7575957441}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ceeji</RootNamespace>
+    <AssemblyName>CeejiCommonLibaray</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CeejiCommonLibaray.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppContext.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Data\BinaryPackage\CPKNode.cs" />
+    <Compile Include="Data\BinaryPackage\CPKPackage.cs" />
+    <Compile Include="Data\BinaryPackage\CPKFlags.cs" />
+    <Compile Include="Data\BinaryPackage\CPKNodeType.cs" />
+    <Compile Include="Data\BinaryPackage\CPKValue.cs" />
+    <Compile Include="Data\Codec\LZ4\LZ4Codec.cs" />
+    <Compile Include="Data\Codec\LZ4\LZ4Stream.cs" />
+    <Compile Include="Data\CompressionAlgorithm.cs" />
+    <Compile Include="Data\Compressor.cs" />
+    <Compile Include="Data\GZipAlgorithm.cs" />
+    <Compile Include="Data\HashHelper.cs" />
+    <Compile Include="Data\IEnumerableExt.cs" />
+    <Compile Include="Data\LZ4Algorithm.cs" />
+    <Compile Include="Data\ObjectPool.cs" />
+    <Compile Include="Data\StreamExt.cs" />
+    <Compile Include="Delayed.cs" />
+    <Compile Include="DelayThreadSafetyMode.cs" />
+    <Compile Include="Data\NullableExt.cs" />
+    <Compile Include="Network\HttpHelper.cs" />
+    <Compile Include="UI\DelayedAction.cs" />
+    <Compile Include="UI\ObjectDisplayWrapper.cs" />
+    <Compile Include="Data\RandomHelper.cs" />
+    <Compile Include="Data\StringExt.cs" />
+    <Compile Include="Log\EventLogger.cs" />
+    <Compile Include="Log\LoggingException.cs" />
+    <Compile Include="Log\LogType.cs" />
+    <Compile Include="Log\LogWriter.cs" />
+    <Compile Include="Log\SingleFileLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

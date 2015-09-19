@@ -1,0 +1,6 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\bin\Release\Ceeji.Imaging.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\bin\Release\Ceeji.Imaging.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\obj\Release\Ceeji.Imaging.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\obj\Release\Ceeji.Imaging.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\obj\Release\Ceeji.Imaging.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Imaging\bin\Release\Ceeji.Imaging.XML

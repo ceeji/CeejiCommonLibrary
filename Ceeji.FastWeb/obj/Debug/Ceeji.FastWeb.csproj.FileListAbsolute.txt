@@ -1,0 +1,9 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\Ceeji.FastWeb.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\Ceeji.FastWeb.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\CeejiCommonLibaray.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\Newtonsoft.Json.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\CeejiCommonLibaray.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Debug\Newtonsoft.Json.xml
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Debug\Ceeji.FastWeb.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Debug\Ceeji.FastWeb.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Debug\Ceeji.FastWeb.pdb

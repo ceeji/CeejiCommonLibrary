@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6A18316-9B66-486C-B167-8420BB393AC2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>libTest</RootNamespace>
+    <AssemblyName>libTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="csredis, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1afd0264bbe4a44a, processorArchitecture=MSIL">
+      <HintPath>..\packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExCSS">
+      <HintPath>..\packages\ExCSS.2.0.6\lib\net451\ExCSS.dll</HintPath>
+    </Reference>
+    <Reference Include="RedisBoost, Version=1.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RedisBoost.1.6.3\lib\net40\RedisBoost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.1.0\lib\net451\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MessagerTest2.cs" />
+    <Compile Include="ObjectPoolTest.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionData3.cs" />
+    <Compile Include="TcpMessagerTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ceeji.Caching\Ceeji.Caching.csproj">
+      <Project>{28eab72f-e2d2-4b20-ab40-098e02168c77}</Project>
+      <Name>Ceeji.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ceeji.FastWeb\Ceeji.FastWeb.csproj">
+      <Project>{47106db1-faa7-40aa-9fc4-130768a88b1f}</Project>
+      <Name>Ceeji.FastWeb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ceeji.Imaging\Ceeji.Imaging.csproj">
+      <Project>{4436d76a-0257-4734-850e-1c73850f561e}</Project>
+      <Name>Ceeji.Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ceeji.Network\Ceeji.Network.csproj">
+      <Project>{45391b63-48e9-4767-bd45-ae85a28e9748}</Project>
+      <Name>Ceeji.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ceeji.Testing\Ceeji.Testing.csproj">
+      <Project>{3bbee23e-5156-48a6-b92c-0e2538cd6e32}</Project>
+      <Name>Ceeji.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibrary.csproj">
+      <Project>{14c85bb2-684d-4832-a508-cb7575957441}</Project>
+      <Name>CeejiCommonLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
