@@ -46,9 +46,9 @@
     <Compile Include="TcpMessager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibaray.csproj">
+    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibrary.csproj">
       <Project>{14c85bb2-684d-4832-a508-cb7575957441}</Project>
-      <Name>CeejiCommonLibaray</Name>
+      <Name>CeejiCommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

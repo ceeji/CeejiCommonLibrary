@@ -90,9 +90,9 @@
       <Project>{3bbee23e-5156-48a6-b92c-0e2538cd6e32}</Project>
       <Name>Ceeji.Testing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibaray.csproj">
+    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibrary.csproj">
       <Project>{14c85bb2-684d-4832-a508-cb7575957441}</Project>
-      <Name>CeejiCommonLibaray</Name>
+      <Name>CeejiCommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

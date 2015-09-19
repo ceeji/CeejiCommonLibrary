@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D045977-95D7-4AA8-8907-877554A719DE}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{14C85BB2-684D-4832-A508-CB7575957441}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPKEditor</RootNamespace>
-    <AssemblyName>CPKEditor</AssemblyName>
+    <RootNamespace>Ceeji</RootNamespace>
+    <AssemblyName>CeejiCommonLibaray</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,15 +21,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CeejiCommonLibaray.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -37,48 +39,48 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="AppContext.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Data\BinaryPackage\CPKNode.cs" />
+    <Compile Include="Data\BinaryPackage\CPKPackage.cs" />
+    <Compile Include="Data\BinaryPackage\CPKFlags.cs" />
+    <Compile Include="Data\BinaryPackage\CPKNodeType.cs" />
+    <Compile Include="Data\BinaryPackage\CPKValue.cs" />
+    <Compile Include="Data\Codec\LZ4\LZ4Codec.cs" />
+    <Compile Include="Data\Codec\LZ4\LZ4Stream.cs" />
+    <Compile Include="Data\CompressionAlgorithm.cs" />
+    <Compile Include="Data\Compressor.cs" />
+    <Compile Include="Data\GZipAlgorithm.cs" />
+    <Compile Include="Data\HashHelper.cs" />
+    <Compile Include="Data\IEnumerableExt.cs" />
+    <Compile Include="Data\LZ4Algorithm.cs" />
+    <Compile Include="Data\ObjectPool.cs" />
+    <Compile Include="Data\StreamExt.cs" />
+    <Compile Include="Delayed.cs" />
+    <Compile Include="DelayThreadSafetyMode.cs" />
+    <Compile Include="Data\NullableExt.cs" />
+    <Compile Include="Network\HttpHelper.cs" />
+    <Compile Include="UI\DelayedAction.cs" />
+    <Compile Include="UI\ObjectDisplayWrapper.cs" />
+    <Compile Include="Data\RandomHelper.cs" />
+    <Compile Include="Data\StringExt.cs" />
+    <Compile Include="Log\EventLogger.cs" />
+    <Compile Include="Log\LoggingException.cs" />
+    <Compile Include="Log\LogType.cs" />
+    <Compile Include="Log\LogWriter.cs" />
+    <Compile Include="Log\SingleFileLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CeejiCommonLibaray\CeejiCommonLibrary.csproj">
-      <Project>{14c85bb2-684d-4832-a508-cb7575957441}</Project>
-      <Name>CeejiCommonLibrary</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
