@@ -1,0 +1,1890 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RedisBoost</name>
+    </assembly>
+    <members>
+        <member name="M:RedisBoost.IRedisClient.DisconnectAsync">
+            <summary>
+            Closes socket connection with Redis
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ClientKillAsync(System.String,System.Int32)">
+            <summary>
+            Kill the connection of a client. 
+            <br/> Complexity: O(N) where N is the number of client connections
+            </summary>
+            <param name="ip"></param>
+            <param name="port"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.KeysAsync(System.String)">
+            <summary>
+            Find all keys matching the given pattern.
+            <br/> Complexity: O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DelAsync(System.String)">
+            <summary>
+            Delete a key.
+            <br/> Complexity: O(N) where N is the number of keys that will be removed. When a key to remove holds a value other than a string, the individual <br/> Complexity for this key is O(M) where M is the number of elements in the list, set, sorted set or hash. Removing a single key that holds a string value is O(1).
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BitOpAsync(RedisBoost.BitOpType,System.String,System.String[])">
+            <summary>
+            Perform bitwise operations between strings.
+            <br/> Complexity: O(N)
+            </summary>
+            <param name="bitOp"></param>
+            <param name="destKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetBitAsync(System.String,System.Int64,System.Int32)">
+            <summary>
+            Sets or clears the bit at offset in the string value stored at key. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="offset"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.GetBitAsync(System.String,System.Int64)">
+            <summary>
+            Returns the bit value at offset in the string value stored at key. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MigrateAsync(System.String,System.Int32,System.String,System.Int32,System.Int32)">
+            <summary>
+            Atomically transfer a key from a Redis instance to another one. 
+            <br/> Complexity: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time <br/> Complexity. Also an O(N) data transfer between the two instances is performed.
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+            <param name="key"></param>
+            <param name="destinationDb"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DumpAsync(System.String)">
+            <summary>
+            Return a serialized version of the value stored at the specified key.
+            <br/> Complexity: O(1) to access the key and additional O(N*M) to serialized it, where N is the number of Redis objects composing the value and M their average size. For small string values the time <br/> Complexity is thus O(1)+O(1*M) where M is small, so simply O(1).
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MoveAsync(System.String,System.Int32)">
+            <summary>
+            Move a key to another database. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ObjectAsync(RedisBoost.Subcommand,System.String[])">
+            <summary>
+            Inspect the internals of Redis objects. <br/> Complexity: O(1) for all the currently implemented subcommands.
+            </summary>
+            <param name="subcommand"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SortAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Boolean,System.String,System.String[])">
+            <summary>
+            Sort the elements in a list, set or sorted set.
+            <br/> Complexity: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, <br/> Complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+            </summary>
+            <param name="key"></param>
+            <param name="by"></param>
+            <param name="limitOffset"></param>
+            <param name="limitCount"></param>
+            <param name="asc"></param>
+            <param name="alpha"></param>
+            <param name="destination"></param>
+            <param name="getPatterns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RestoreAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Create a key using the provided serialized value, previously obtained using DUMP.
+            <br/> Complexity: O(1) to create the new key and additional O(N*M) to recostruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time <br/> Complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the <br/> Complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="ttlInMilliseconds"></param>
+            <param name="serializedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ExistsAsync(System.String)">
+            <summary>
+            Determine if a key exists.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ExpireAsync(System.String,System.Int32)">
+            <summary>
+            Set a key's time to live in seconds.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="seconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PExpireAsync(System.String,System.Int32)">
+            <summary>
+            Set a key's time to live in milliseconds.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="milliseconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ExpireAtAsync(System.String,System.DateTime)">
+            <summary>
+            Set a key's time to live in seconds.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PersistAsync(System.String)">
+            <summary>
+            Remove the expiration from a key. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PttlAsync(System.String)">
+            <summary>
+            Get the time to live for a key in milliseconds. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.TtlAsync(System.String)">
+            <summary>
+            Get the time to live for a key. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.TypeAsync(System.String)">
+            <summary>
+            Returns the string representation of the type of the value stored at key. The different types that can be returned are: string, list, set, zset and hash.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RandomKeyAsync">
+            <summary>
+            Return a random key from the keyspace. <br/> Complexity: O(1)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RenameAsync(System.String,System.String)">
+            <summary>
+            Rename a key. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="newKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RenameNxAsync(System.String,System.String)">
+            <summary>
+            Rename a key, only if the new key does not exist.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="newKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.FlushDbAsync">
+            <summary>
+            Remove all keys from the current database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.FlushAllAsync">
+            <summary>
+            Remove all keys from all databases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BgRewriteAofAsync">
+            <summary>
+            Asynchronously rewrite the append-only file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BgSaveAsync">
+            <summary>
+            Asynchronously save the dataset to disk
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ClientListAsync">
+            <summary>
+            Get the list of client connections. <br/> Complexity: O(N) where N is the number of client connections.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DbSizeAsync">
+            <summary>
+            Return the number of keys in the selected database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ConfigGetAsync(System.String)">
+            <summary>
+            Get the value of a configuration parameter
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ConfigSetAsync``1(System.String,``0)">
+            <summary>
+            Set a configuration parameter to the given value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parameter"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ConfigSetAsync(System.String,System.Byte[])">
+            <summary>
+            Set a configuration parameter to the given value
+            </summary>
+            <param name="parameter"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ConfigResetStatAsync">
+            <summary>
+            Reset the stats returned by INFO. <br/> Complexity: O(1)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.InfoAsync">
+            <summary>
+            Get information and statistics about the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.InfoAsync(System.String)">
+            <summary>
+            Get information and statistics about the server
+            </summary>
+            <param name="section"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LastSaveAsync">
+            <summary>
+            Get the UNIX time stamp of the last successful save to disk
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SaveAsync">
+            <summary>
+            Synchronously save the dataset to disk
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ShutDownAsync">
+            <summary>
+            Synchronously save the dataset to disk and then shut down the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ShutDownAsync(System.Boolean)">
+            <summary>
+            Synchronously save the dataset to disk and then shut down the server
+            </summary>
+            <param name="save"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SlaveOfAsync(System.String,System.Int32)">
+            <summary>
+            Make the server a slave of another instance, or promote it as master
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.TimeAsync">
+            <summary>
+            Return the current server time. <br/> Complexity: O(1)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.AuthAsync(System.String)">
+            <summary>
+            Authenticate to the server
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EchoAsync``1(``0)">
+            <summary>
+            Echo the given string
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EchoAsync(System.Byte[])">
+            <summary>
+            Echo the given string
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PingAsync">
+            <summary>
+            Ping the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.QuitAsync">
+            <summary>
+            Close the connection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SelectAsync(System.Int32)">
+            <summary>
+            Change the selected database for the current connection
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HSetAsync``2(System.String,``0,``1)">
+            <summary>
+            Set the string value of a hash field. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <typeparam name="TVal"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HSetAsync(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            Set the string value of a hash field. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HSetNxAsync``2(System.String,``0,``1)">
+            <summary>
+            Set the value of a hash field, only if the field does not exist. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <typeparam name="TVal"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HSetNxAsync(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            Set the value of a hash field, only if the field does not exist. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HExistsAsync``1(System.String,``0)">
+            <summary>
+            Determine if a hash field exists. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HExistsAsync(System.String,System.Byte[])">
+            <summary>
+            Determine if a hash field exists. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HDelAsync(System.String,System.Object[])">
+            <summary>
+            Delete one or more hash fields. <br/> Complexity: O(N) where N is the number of fields to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HDelAsync``1(System.String,``0[])">
+            <summary>
+            Delete one or more hash fields. <br/> Complexity: O(N) where N is the number of fields to be removed.
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HDelAsync(System.String,System.Byte[][])">
+            <summary>
+            Delete one or more hash fields. <br/> Complexity: O(N) where N is the number of fields to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HGetAsync``1(System.String,``0)">
+            <summary>
+            Get the value of a hash field. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HGetAsync(System.String,System.Byte[])">
+            <summary>
+            Get the value of a hash field. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HGetAllAsync(System.String)">
+            <summary>
+            Get all the fields and values in a hash. <br/> Complexity: O(N) where N is the size of the hash.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HIncrByAsync``1(System.String,``0,System.Int32)">
+            <summary>
+            Increment the integer value of a hash field by the given number. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HIncrByAsync(System.String,System.Byte[],System.Int32)">
+            <summary>
+            Increment the integer value of a hash field by the given number. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HIncrByFloatAsync``1(System.String,``0,System.Double)">
+            <summary>
+            Increment the float value of a hash field by the given amount. <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HIncrByFloatAsync(System.String,System.Byte[],System.Double)">
+            <summary>
+            Increment the float value of a hash field by the given amount. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HKeysAsync(System.String)">
+            <summary>
+            Get all the fields in a hash. <br/> Complexity: O(N) where N is the size of the hash.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HValsAsync(System.String)">
+            <summary>
+            Get all the values in a hash. <br/> Complexity: O(N) where N is the size of the hash.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HLenAsync(System.String)">
+            <summary>
+            Get the number of fields in a hash. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HMGetAsync``1(System.String,``0[])">
+            <summary>
+            Get the values of all the given hash fields. <br/> Complexity: O(N) where N is the number of fields being requested.
+            </summary>
+            <typeparam name="TFld"></typeparam>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HMGetAsync(System.String,System.Byte[][])">
+            <summary>
+            Get the values of all the given hash fields. <br/> Complexity: O(N) where N is the number of fields being requested.
+            </summary>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.HMSetAsync(System.String,RedisBoost.MSetArgs[])">
+            <summary>
+            Set multiple hash fields to multiple values. <br/> Complexity: O(N) where N is the number of fields being set.
+            </summary>
+            <param name="key"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EvalAsync(System.String,System.String[],System.Object[])">
+            <summary>
+            Execute a Lua script server side. <br/> Complexity: Depends on the script that is executed.
+            </summary>
+            <param name="script"></param>
+            <param name="keys"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EvalAsync(System.String,System.String[],System.Byte[][])">
+            <summary>
+            Execute a Lua script server side. <br/> Complexity: Depends on the script that is executed.
+            </summary>
+            <param name="script"></param>
+            <param name="keys"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EvalShaAsync(System.Byte[],System.String[],System.Object[])">
+            <summary>
+            Execute a Lua script server side. <br/> Complexity: Depends on the script that is executed.
+            </summary>
+            <param name="sha1"></param>
+            <param name="keys"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.EvalShaAsync(System.Byte[],System.String[],System.Byte[][])">
+            <summary>
+            Execute a Lua script server side. <br/> Complexity: Depends on the script that is executed.
+            </summary>
+            <param name="sha1"></param>
+            <param name="keys"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ScriptLoadAsync(System.String)">
+            <summary>
+            Load the specified Lua script into the script cache. <br/> Complexity: O(N) with N being the length in bytes of the script body.
+            </summary>
+            <param name="script"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ScriptExistsAsync(System.Byte[][])">
+            <summary>
+            Check existence of scripts in the script cache. <br/> Complexity: O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).
+            </summary>
+            <param name="sha1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ScriptFlushAsync">
+            <summary>
+            Remove all the scripts from the script cache. <br/> Complexity: O(N) with N being the number of scripts in cache.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ScriptKillAsync">
+            <summary>
+            Kill the script currently in execution. <br/> Complexity: O(1)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZAddAsync``1(System.String,System.Int64,``0)">
+            <summary>
+            Add one or more members to a sorted set, or update its score if it already exists.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="score"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZAddAsync(System.String,System.Int64,System.Byte[])">
+            <summary>
+            Add one or more members to a sorted set, or update its score if it already exists.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <param name="key"></param>
+            <param name="score"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZAddAsync``1(System.String,System.Double,``0)">
+            <summary>
+            Add one or more members to a sorted set, or update its score if it already exists.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="score"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZAddAsync(System.String,System.Double,System.Byte[])">
+            <summary>
+            Add one or more members to a sorted set, or update its score if it already exists.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <param name="key"></param>
+            <param name="score"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZAddAsync(System.String,RedisBoost.ZAddArgs[])">
+            <summary>
+            Add one or more members to a sorted set, or update its score if it already exists.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <param name="key"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemAsync``1(System.String,``0[])">
+            <summary>
+            Remove one or more members from a sorted set.
+            <br/> Complexity: O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemAsync(System.String,System.Object[])">
+            <summary>
+            Remove one or more members from a sorted set.
+            <br/> Complexity: O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemAsync(System.String,System.Byte[][])">
+            <summary>
+            Remove one or more members from a sorted set.
+            <br/> Complexity: O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemRangeByRankAsync(System.String,System.Int64,System.Int64)">
+            <summary>
+            Remove all members in a sorted set within the given indexes.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="stop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemRangeByScoreAsync(System.String,System.Int64,System.Int64)">
+            <summary>
+            Remove all members in a sorted set within the given scores.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRemRangeByScoreAsync(System.String,System.Double,System.Double)">
+            <summary>
+            Remove all members in a sorted set within the given scores.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZCardAsync(System.String)">
+            <summary>
+            Get the number of members in a sorted set. <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZCountAsync(System.String,System.Int64,System.Int64)">
+            <summary>
+            Count the members in a sorted set with scores within the given values.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between min and max.
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZCountAsync(System.String,System.Double,System.Double)">
+            <summary>
+            Count the members in a sorted set with scores within the given values.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between min and max.
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZIncrByAsync``1(System.String,System.Int64,``0)">
+            <summary>
+            Increment the score of a member in a sorted set.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZIncrByAsync(System.String,System.Int64,System.Byte[])">
+            <summary>
+            Increment the score of a member in a sorted set.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZIncrByAsync``1(System.String,System.Double,``0)">
+            <summary>
+            Increment the score of a member in a sorted set.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZIncrByAsync(System.String,System.Double,System.Byte[])">
+            <summary>
+            Increment the score of a member in a sorted set.
+            <br/> Complexity: O(log(N)) where N is the number of elements in the sorted set.
+            </summary>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZInterStoreAsync(System.String,System.String[])">
+            <summary>
+            Intersect multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZInterStoreAsync(System.String,RedisBoost.Aggregation,System.String[])">
+            <summary>
+            Intersect multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="aggregation"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZInterStoreAsync(System.String,RedisBoost.ZAggrStoreArgs[])">
+            <summary>
+            Intersect multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZInterStoreAsync(System.String,RedisBoost.Aggregation,RedisBoost.ZAggrStoreArgs[])">
+            <summary>
+            Intersect multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="aggregation"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRangeAsync(System.String,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by index.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="stop"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRangeByScoreAsync(System.String,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRangeByScoreAsync(System.String,System.Int64,System.Int64,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="limitOffset"></param>
+            <param name="limitCount"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRangeByScoreAsync(System.String,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRangeByScoreAsync(System.String,System.Double,System.Double,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="limitOffset"></param>
+            <param name="limitCount"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRankAsync``1(System.String,``0)">
+            <summary>
+            Determine the index of a member in a sorted set.
+            <br/> Complexity: O(log(N))
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRankAsync(System.String,System.Byte[])">
+            <summary>
+            Determine the index of a member in a sorted set.
+            <br/> Complexity: O(log(N))
+            </summary>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRankAsync``1(System.String,``0)">
+            <summary>
+            Determine the index of a member in a sorted set, with scores ordered from high to low.
+            <br/> Complexity: O(log(N))
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRankAsync(System.String,System.Byte[])">
+            <summary>
+            Determine the index of a member in a sorted set, with scores ordered from high to low.
+            <br/> Complexity: O(log(N))
+            </summary>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRangeAsync(System.String,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by index, with scores ordered from high to low.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="stop"></param>
+            <param name="withscores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRangeByScoreAsync(System.String,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score, with scores ordered from high to low.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRangeByScoreAsync(System.String,System.Int64,System.Int64,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score, with scores ordered from high to low.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="limitOffset"></param>
+            <param name="limitCount"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRangeByScoreAsync(System.String,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score, with scores ordered from high to low.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZRevRangeByScoreAsync(System.String,System.Double,System.Double,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Return a range of members in a sorted set, by score, with scores ordered from high to low.
+            <br/> Complexity: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+            </summary>
+            <param name="key"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="limitOffset"></param>
+            <param name="limitCount"></param>
+            <param name="withScores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZScoreAsync``1(System.String,``0)">
+            <summary>
+            Get the score associated with the given member in a sorted set.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZScoreAsync(System.String,System.Byte[])">
+            <summary>
+            Get the score associated with the given member in a sorted set.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZUnionStoreAsync(System.String,System.String[])">
+            <summary>
+            Add multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZUnionStoreAsync(System.String,RedisBoost.Aggregation,System.String[])">
+            <summary>
+            Add multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="aggregation"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZUnionStoreAsync(System.String,RedisBoost.ZAggrStoreArgs[])">
+            <summary>
+            Add multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ZUnionStoreAsync(System.String,RedisBoost.Aggregation,RedisBoost.ZAggrStoreArgs[])">
+            <summary>
+            Add multiple sorted sets and store the resulting sorted set in a new key.
+            <br/> Complexity: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="aggregation"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.GetAsync(System.String)">
+            <summary>
+            Get the value of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetAsync``1(System.String,``0)">
+            <summary>
+            Set value of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetAsync(System.String,System.Byte[])">
+            <summary>
+            Set value of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.AppendAsync``1(System.String,``0)">
+            <summary>
+            Append a value to a key.
+            <br/> Complexity: O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.AppendAsync(System.String,System.Byte[])">
+            <summary>
+            Append a value to a key.
+            <br/> Complexity: O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BitCountAsync(System.String)">
+            <summary>
+            Count set bits in a string.
+            <br/> Complexity: O(N)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BitCountAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Count set bits in a string.
+            <br/> Complexity: O(N)
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DecrAsync(System.String)">
+            <summary>
+            Decrement the integer value of a key by one.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.IncrAsync(System.String)">
+            <summary>
+            Increment the integer value of a key by one.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DecrByAsync(System.String,System.Int32)">
+            <summary>
+            Decrement the integer value of a key by the given number.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="decrement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.IncrByAsync(System.String,System.Int32)">
+            <summary>
+            Increment the integer value of a key by the given amount.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.IncrByFloatAsync(System.String,System.Double)">
+            <summary>
+            Increment the float value of a key by the given amount.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="increment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.GetRangeAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a substring of the string stored at a key.
+            <br/> Complexity: O(N) where N is the length of the returned string. The complexity is ultimately determined by the returned length, but because creating a substring from an existing string is very cheap, it can be considered O(1) for small strings.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetRangeAsync``1(System.String,System.Int32,``0)">
+            <summary>
+            Overwrite part of a string at key starting at the specified offset.
+            <br/> Complexity: O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the value argument.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="offset"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetRangeAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Overwrite part of a string at key starting at the specified offset.
+            <br/> Complexity: O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the value argument.
+            </summary>
+            <param name="key"></param>
+            <param name="offset"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.StrLenAsync(System.String)">
+            <summary>
+            Get the length of the value stored in a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.GetSetAsync``1(System.String,``0)">
+            <summary>
+            Set the string value of a key and return its old value.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.GetSetAsync(System.String,System.Byte[])">
+            <summary>
+            Set the string value of a key and return its old value.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MGetAsync(System.String[])">
+            <summary>
+            Get the values of all the given keys.
+            <br/> Complexity: O(N) where N is the number of keys to retrieve.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MSetAsync(RedisBoost.MSetArgs[])">
+            <summary>
+            Set multiple keys to multiple values.
+            <br/> Complexity: O(N) where N is the number of keys to set.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MSetNxAsync(RedisBoost.MSetArgs[])">
+            <summary>
+            Set multiple keys to multiple values, only if none of the keys exist.
+            <br/> Complexity: O(N) where N is the number of keys to set.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetExAsync``1(System.String,System.Int32,``0)">
+            <summary>
+            Set the value and expiration of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="seconds"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetExAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Set the value and expiration of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="seconds"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PSetExAsync``1(System.String,System.Int32,``0)">
+            <summary>
+            Set the value and expiration in milliseconds of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="milliseconds"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PSetExAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Set the value and expiration in milliseconds of a key.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="milliseconds"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetNxAsync``1(System.String,``0)">
+            <summary>
+            Set the value of a key, only if the key does not exist.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SetNxAsync(System.String,System.Byte[])">
+            <summary>
+            Set the value of a key, only if the key does not exist.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SAddAsync(System.String,System.Object[])">
+            <summary>
+            Add one or more members to a set.
+            <br/> Complexity: O(N) where N is the number of members to be added.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SAddAsync``1(System.String,``0[])">
+            <summary>
+            Add one or more members to a set.
+            <br/> Complexity: O(N) where N is the number of members to be added.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SAddAsync(System.String,System.Byte[][])">
+            <summary>
+            Add one or more members to a set.
+            <br/> Complexity: O(N) where N is the number of members to be added.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SRemAsync(System.String,System.Object[])">
+            <summary>
+            Remove one or more members from a set.
+            <br/> Complexity: O(N) where N is the number of members to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SRemAsync``1(System.String,``0[])">
+            <summary>
+            Remove one or more members from a set.
+            <br/> Complexity: O(N) where N is the number of members to be removed.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SRemAsync(System.String,System.Byte[][])">
+            <summary>
+            Remove one or more members from a set.
+            <br/> Complexity: O(N) where N is the number of members to be removed.
+            </summary>
+            <param name="key"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SCardAsync(System.String)">
+            <summary>
+            Get the number of members in a set.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SDiffAsync(System.String[])">
+            <summary>
+            Subtract multiple sets. 
+            <br/> O(N) where N is the total number of elements in all given sets.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SDiffStoreAsync(System.String,System.String[])">
+            <summary>
+            Subtract multiple sets and store the resulting set in a key.
+            <br/> Complexity: O(N) where N is the total number of elements in all given sets.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SUnionAsync(System.String[])">
+            <summary>
+            Add multiple sets.
+            <br/> Complexity: O(N) where N is the total number of elements in all given sets.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SUnionStoreAsync(System.String,System.String[])">
+            <summary>
+            Add multiple sets and store the resulting set in a key.
+            <br/> Complexity: O(N) where N is the total number of elements in all given sets.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SInterAsync(System.String[])">
+            <summary>
+            Intersect multiple sets.
+            <br/> Complexity: O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SInterStoreAsync(System.String,System.String[])">
+            <summary>
+            Intersect multiple sets and store the resulting set in a key.
+            <br/> Complexity: O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.
+            </summary>
+            <param name="destinationKey"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SIsMemberAsync``1(System.String,``0)">
+            <summary>
+            Determine if a given value is a member of a set.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SIsMemberAsync(System.String,System.Byte[])">
+            <summary>
+            Determine if a given value is a member of a set.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SMembersAsync(System.String)">
+            <summary>
+            Get all the members in a set.
+            <br/> Complexity: O(N) where N is the set cardinality.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SMoveAsync``1(System.String,System.String,``0)">
+            <summary>
+            Move a member from one set to another.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sourceKey"></param>
+            <param name="destinationKey"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SMoveAsync(System.String,System.String,System.Byte[])">
+            <summary>
+            Move a member from one set to another.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="sourceKey"></param>
+            <param name="destinationKey"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SPopAsync(System.String)">
+            <summary>
+            Remove and return a random member from a set.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SRandMemberAsync(System.String)">
+            <summary>
+            Get one or multiple random members from a set.
+            <br/> Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SRandMemberAsync(System.String,System.Int32)">
+            <summary>
+            Get one or multiple random members from a set.
+            <br/> Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
+            </summary>
+            <param name="key"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BlPopAsync(System.Int32,System.String[])">
+            <summary>
+            Remove and get the first element in a list, or block until one is available.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="timeoutInSeconds"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPushAsync(System.String,System.Object[])">
+            <summary>
+            Prepend one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPushAsync``1(System.String,``0[])">
+            <summary>
+            Prepend one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPushAsync(System.String,System.Byte[][])">
+            <summary>
+            Prepend one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BrPopAsync(System.Int32,System.String[])">
+            <summary>
+            Remove and get the last element in a list, or block until one is available.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="timeoutInSeconds"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPushAsync(System.String,System.Object[])">
+            <summary>
+            Append one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPushAsync``1(System.String,``0[])">
+            <summary>
+            Append one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPushAsync(System.String,System.Byte[][])">
+            <summary>
+            Append one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPopAsync(System.String)">
+            <summary>
+            Remove and get the first element in a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPopAsync(System.String)">
+            <summary>
+            Remove and get the last element in a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPopLPushAsync(System.String,System.String)">
+            <summary>
+            Remove the last element in a list, append it to another list and return it.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="source"></param>
+            <param name="destination"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.BRPopLPushAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Pop a value from a list, push it to another list and return it; or block until one is available.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="sourceKey"></param>
+            <param name="destinationKey"></param>
+            <param name="timeoutInSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LIndexAsync(System.String,System.Int32)">
+            <summary>
+            Get an element from a list by its index.
+            <br/> Complexity: O(N) where N is the number of elements to traverse to get to the element at index. This makes asking for the first or the last element of the list O(1).
+            </summary>
+            <param name="key"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LInsertAsync``2(System.String,``0,``1,System.Boolean)">
+            <summary>
+            Insert an element before or after another element in a list.
+            <br/> Complexity: O(N) where N is the number of elements to traverse before seeing the value pivot. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).
+            </summary>
+            <typeparam name="TPivot"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+            <param name="pivot"></param>
+            <param name="value"></param>
+            <param name="before"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LInsertAsync(System.String,System.Byte[],System.Byte[],System.Boolean)">
+            <summary>
+            Insert an element before or after another element in a list.
+            <br/> Complexity: O(N) where N is the number of elements to traverse before seeing the value pivot. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).
+            </summary>
+            <param name="key"></param>
+            <param name="pivot"></param>
+            <param name="value"></param>
+            <param name="before"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LLenAsync(System.String)">
+            <summary>
+            Get the length of a list.
+            <br/> Complxity: O(1)
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPushXAsync``1(System.String,``0)">
+            <summary>
+            Prepend a value to a list, only if the list exists.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LPushXAsync(System.String,System.Byte[])">
+            <summary>
+            Prepend a value to a list, only if the list exists.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LRangeAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a range of elements from a list.
+            <br/> Complexity: O(S+N) where S is the start offset and N is the number of elements in the specified range.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="stop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LRemAsync``1(System.String,System.Int32,``0)">
+            <summary>
+            Remove elements from a list.
+            <br/> Complexity: O(N) where N is the length of the list.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="count"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LRemAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Remove elements from a list.
+            <br/> Complexity: O(N) where N is the length of the list.
+            </summary>
+            <param name="key"></param>
+            <param name="count"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LSetAsync``1(System.String,System.Int32,``0)">
+            <summary>
+            Set the value of an element in a list by its index.
+            <br/> Complexity: O(N) where N is the length of the list. Setting either the first or the last element of the list is O(1).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LSetAsync(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Set the value of an element in a list by its index.
+            <br/> Complexity: O(N) where N is the length of the list. Setting either the first or the last element of the list is O(1).
+            </summary>
+            <param name="key"></param>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.LTrimAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Trim a list to the specified range.
+            <br/> Complexity: O(N) where N is the number of elements to be removed by the operation.
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="stop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPushXAsync``1(System.String,``0)">
+            <summary>
+            Append one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.RPushXAsync(System.String,System.Byte[])">
+            <summary>
+            Append one or multiple values to a list.
+            <br/> Complexity: O(1)
+            </summary>
+            <param name="key"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.DiscardAsync">
+            <summary>
+            Discard all commands issued after MULTI
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.ExecAsync">
+            <summary>
+            Execute all commands issued after MULTI
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.MultiAsync">
+            <summary>
+            Mark the start of a transaction block
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.UnwatchAsync">
+            <summary>
+            Forget about all watched keys
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.WatchAsync(System.String[])">
+            <summary>
+            Watch the given keys to determine execution of the MULTI/EXEC block.
+            <br/> Complexity: O(1) for every key.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PublishAsync``1(System.String,``0)">
+            <summary>
+            Post a message to a channel.
+            <br/> Complexity: O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PublishAsync(System.String,System.Byte[])">
+            <summary>
+            Post a message to a channel.
+            <br/> Complexity: O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).
+            </summary>
+            <param name="channel"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.SubscribeAsync(System.String[])">
+            <summary>
+            Listen for messages published to the given channels.
+            <br/> Complexity: O(N) where N is the number of channels to subscribe to.
+            </summary>
+            <param name="channels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PSubscribeAsync(System.String[])">
+            <summary>
+            Listen for messages published to channels matching the given patterns.
+            <br/> Complexity: O(N) where N is the number of patterns the client is already subscribed to.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PubSubChannels(System.String)">
+            <summary>
+            Lists the currently active channels. An active channel is a Pub/Sub channel with one ore more subscribers (not including clients subscribed to patterns).
+            If no pattern is specified, all the channels are listed, otherwise if pattern is specified only channels matching the specified glob-style pattern are listed.
+            <br/> Complexity:  O(N), where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns)
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PubSubNumSub(System.String[])">
+            <summary>
+            Returns the number of subscribers (not counting clients subscribed to patterns) for the specified channels.
+            <br/> Complexity: O(N), where N is the number of requested channels
+            </summary>
+            <param name="channels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisClient.PubSubNumPat">
+            <summary>
+            Returns the number of subscriptions to patterns (that are performed using the PSUBSCRIBE command). Note that this is not just the count of clients subscribed to patterns but the total number of patterns all the clients are subscribed to.
+            <br/> Complexity: O(1)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.SubscribeAsync(System.String[])">
+            <summary>
+            Listen for messages published to the given channels.
+            <br/> Complexity: O(N) where N is the number of channels to subscribe to.
+            </summary>
+            <param name="channels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.PSubscribeAsync(System.String[])">
+            <summary>
+            Listen for messages published to channels matching the given patterns.
+            <br/> Complexity: O(N) where N is the number of patterns the client is already subscribed to.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.UnsubscribeAsync(System.String[])">
+            <summary>
+            Stop listening for messages posted to the given channels.
+            <br/> Complexity: O(N) where N is the number of clients already subscribed to a channel.
+            </summary>
+            <param name="channels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.PUnsubscribeAsync(System.String[])">
+            <summary>
+            Stop listening for messages posted to channels matching the given patterns.
+            <br/> Complexity: O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).
+            </summary>
+            <param name="channels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.ReadMessageAsync">
+            <summary>
+            Read message from channel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.ReadMessageAsync(RedisBoost.ChannelMessageType)">
+            <summary>
+            Read and return first message from channel that fits filter
+            </summary>
+            <param name="messageTypeFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.QuitAsync">
+            <summary>
+            Close the connection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedisBoost.IRedisSubscription.DisconnectAsync">
+            <summary>
+            Closes socket connection with Redis
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

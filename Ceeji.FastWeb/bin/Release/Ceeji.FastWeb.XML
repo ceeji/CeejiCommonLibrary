@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ceeji.FastWeb</name>
+    </assembly>
+    <members>
+        <member name="T:Ceeji.FastWeb.AsyncHtmlPart">
+            <summary>
+            代表一个需要异步在后台准备输出的 HtmlPart。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.AsyncHtmlPart.PrepareStreamAsync">
+            <summary>
+            异步准备输出结果。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Ceeji.FastWeb.FastWebHttpHandler">
+            <summary>
+            使用 FastWeb 引擎处理 Http 请求的 HttpHandler。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.FastWebHttpHandler.#ctor(Ceeji.FastWeb.RequestProcesser)">
+            <summary>
+            创建使用 FastWeb 引擎处理 Http 请求的 HttpHandler。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.FastWebHttpHandler.DefaultTitle">
+            <summary>
+            获取或设置页面的默认标题。
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.RequestProcesser">
+            <summary>
+            处理请求的委托。
+            </summary>
+            <param name="context"></param>
+            <param name="response"></param>
+        </member>
+        <member name="T:Ceeji.FastWeb.HtmlElement">
+            <summary>
+            代表一个 Html 元素。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElement.#ctor(System.String)">
+            <summary>
+            创建 Html 元素的新实例。
+            </summary>
+            <param name="tagName">要创建的元素的标签名。</param>
+            <exception cref="T:System.ArgumentException">当标签名无效时返回该异常。</exception>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlElement.InnerHtml">
+            <summary>
+            返回或设置 HtmlElement 的子元素。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElement.GetAttributesHtml">
+            <summary>
+            返回 Html 元素的所有属性所组成的 Html。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlElement.TagName">
+            <summary>
+            获取对象的 Html 标签名。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlElement.Attributes">
+            <summary>
+            获取对象的 Html 属性集的列表。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlElement.ID">
+            <summary>
+            返回或设置对象的 ID。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElements.Raw.#ctor(System.String)">
+            <summary>
+            创建 Raw 的新实例。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElements.Script.#ctor(System.String,System.String)">
+            <summary>
+            使用指定的 innerScript 创建新实例。
+            </summary>
+            <param name="javascriptContent">要添加的 javaScript 正文。</param>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElements.Script.#ctor(System.String)">
+            <summary>
+            使用指定的 src 创建新实例。
+            </summary>
+            <param name="src">要指定的 src 属性</param>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElements.Style.#ctor(System.String,System.String)">
+            <summary>
+            使用指定的 innerStyle 创建新实例。
+            </summary>
+            <param name="content"></param>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlElements.Style.#ctor(System.String)">
+            <summary>
+            使用指定的 innerStyle 创建新实例。
+            </summary>
+            <param name="content"></param>
+        </member>
+        <member name="T:Ceeji.FastWeb.HtmlPart">
+            <summary>
+            代表 Html 页面的一部分。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlPart.WriteToStream(System.IO.Stream,Ceeji.FastWeb.HtmlOutputFormat,System.Int32)">
+            <summary>
+            将对象所表达的 Html 内容输出至流。
+            </summary>
+            <param name="s"></param>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlPart.ToString">
+            <summary>
+            返回对象所表达的 Html 内容。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlPart.ToString(Ceeji.FastWeb.HtmlOutputFormat)">
+            <summary>
+            返回对象所表达的 Html 内容。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlPart.Scripts">
+            <summary>
+            设置运行此 HtmlPart 所需要的脚本。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlPart.Styles">
+            <summary>
+            设置运行此 HtmlPart 所需要的样式表。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlPart.ID">
+            <summary>
+            获取或设置此 AsyncHtmlPart 的 ID。
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.HtmlOutputFormat">
+            <summary>
+            代表 Html 的输出格式
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.HtmlOutputFormat.Indent">
+            <summary>
+            指示 Html 尽可能缩进
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.HtmlOutputFormat.Zipped">
+            <summary>
+            指示 Html 尽可能压缩
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.HtmlResponse">
+            <summary>
+            代表一个 Html 请求的响应。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlResponse.#ctor">
+            <summary>
+            创建 HtmlResponse 的新实例。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HtmlResponse.#ctor(System.String)">
+            <summary>
+            创建 HtmlResponse 的新实例。
+            </summary>
+            <param name="title">页面的标题。</param>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlResponse.Title">
+            <summary>
+            返回或设置页面的标题。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlResponse.Parts">
+            <summary>
+            返回或设置页面的 Part 列表。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlResponse.ContentType">
+            <summary>
+            返回或设置正文类型。
+            </summary>
+        </member>
+        <member name="P:Ceeji.FastWeb.HtmlResponse.UseBigPipe">
+            <summary>
+            获取或设置是否使用 BigPipe 进行输出。默认为 true，设置为 false 可以方便搜索引擎进行索引。
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.HttpUtil">
+            <summary>
+            提供和 Http 相关的实用方法。
+            </summary>
+        </member>
+        <member name="M:Ceeji.FastWeb.HttpUtil.SerializeAsyncPart(Ceeji.FastWeb.HtmlPart)">
+            <summary>
+            序列化异步 HtmlPart，实现浏览器动态解析并加载，且不需要使用 Ajax。
+            </summary>
+            <param name="part"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.FastWeb.HttpUtil.GetDeviceTypeFromUserAgent(System.String)">
+            <summary>
+            根据用户传递的 User Agent 字段，判断用户从何浏览器进行浏览。
+            </summary>
+            <param name="userAgent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Ceeji.FastWeb.DeviceType">
+            <summary>
+            代表客户端浏览器所在的设备类型
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.None">
+            <summary>
+            代表空值
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Computer">
+            <summary>
+            代表设备为计算机
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Smartphone">
+            <summary>
+            代表设备为智能手机
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Tablet">
+            <summary>
+            代表设备为平板电脑
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.iPhone">
+            <summary>
+            代表设备为 iPhone
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.iPad">
+            <summary>
+            代表设备为 iPad
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.iOS">
+            <summary>
+            代表设备为 iOS 设备
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Android">
+            <summary>
+            代表设备为 Android 设备
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Webkit">
+            <summary>
+            代表设备使用了 Webkit 内核
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Firefox">
+            <summary>
+            代表设备使用了 Firefox
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.IE">
+            <summary>
+            代表设备使用了 IE 内核
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.iPod">
+            <summary>
+            代表设备使用了 iPod
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.Spider">
+            <summary>
+            代表设备为搜索引擎
+            </summary>
+        </member>
+        <member name="F:Ceeji.FastWeb.DeviceType.BzbxApp">
+            <summary>
+            代表设备为边做边学内置浏览器
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.ResponseWriter">
+            <summary>
+            用于对指定的页面生成输出。
+            </summary>
+        </member>
+        <member name="T:Ceeji.FastWeb.Router">
+            <summary>
+            代表 URI 路由表。
+            </summary>
+        </member>
+    </members>
+</doc>

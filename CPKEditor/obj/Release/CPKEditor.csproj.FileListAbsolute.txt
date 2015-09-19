@@ -1,0 +1,11 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\bin\Release\CPKEditor.exe
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\bin\Release\CPKEditor.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\bin\Release\CeejiCommonLibaray.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\bin\Release\CeejiCommonLibaray.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\bin\Release\CeejiCommonLibaray.xml
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.Form1.resources
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.Properties.Resources.resources
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.csproj.GenerateResource.Cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.exe
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CPKEditor\obj\Release\CPKEditor.pdb

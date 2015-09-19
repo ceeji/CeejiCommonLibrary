@@ -1,0 +1,7 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Debug\Ceeji.Testing.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Debug\Ceeji.Testing.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Debug\Ceeji.Testing.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Debug\Ceeji.Testing.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Debug\Ceeji.Testing.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Debug\CeejiCommonLibaray.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Debug\CeejiCommonLibaray.pdb
