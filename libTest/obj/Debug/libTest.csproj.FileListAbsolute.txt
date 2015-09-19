@@ -25,3 +25,7 @@ D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\c
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\csredis.xml
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\RedisBoost.dll
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\RedisBoost.xml
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\Nito.AsyncEx.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\Nito.AsyncEx.Enlightenment.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\Nito.AsyncEx.xml
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\libTest\bin\Debug\Nito.AsyncEx.Enlightenment.xml

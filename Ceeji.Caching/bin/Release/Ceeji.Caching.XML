@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ceeji.Caching</name>
+    </assembly>
+    <members>
+        <member name="T:Ceeji.Caching.CachingProvider">
+            <summary>
+            An abstract class that represents a kind of thread-safe chaching provider which supports redis-like operation. You should create a class that derived from this class for using
+            </summary>
+            <remarks>
+            This class will try to finish all things and retry forever. So, if a command failed, it will wait for some time and try again and again
+            </remarks>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.IncrementAsync(System.String)">
+            <summary>
+            Increases values by 1 
+            </summary>
+            <param name="key">The key to increase, whose value must be integer</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.SetExpireTimeAsync(System.String,System.TimeSpan)">
+            <summary>
+            Set expire time of a key
+            </summary>
+            <param name="key">The key</param>
+            <param name="time">The TimeSpan from now</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.SetAddAsync(System.String,System.String[])">
+            <summary>
+            Add one or more values to a set
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.KeyExistsAsync(System.String)">
+            <summary>
+            Check if a key is exists in the database
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.StringGetAsync(System.String)">
+            <summary>
+            Gets the value of a key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.StringGetAsync(System.String[])">
+            <summary>
+            Gets the value of many key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.StringGet(System.String[])">
+            <summary>
+            Gets the value of many key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.StringGet(System.String)">
+            <summary>
+            Gets the value of a key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Ceeji.Caching.CachingProvider.RetryInterval">
+            <summary>
+            Interval between command retries
+            </summary>
+        </member>
+        <member name="P:Ceeji.Caching.CachingProvider.RetryTimeout">
+            <summary>
+            Timeout for command retries
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.Dispose">
+            <summary>
+            释放此接口使用的一切资源。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.OnIncrementAsync(System.String)">
+            <summary>
+            Increment a key in the derived class
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Caching.CachingProvider.OnRestoreEnvironment">
+            <summary>
+            Try to restore connection and others in derived class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Ceeji.Caching.RedisBoostCachingProvider">
+            <summary>
+            An redis-based caching provider, which is built on RedisBoost project
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor">
+            <summary>
+            initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor(System.String)">
+            <summary>
+            initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host property.
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor(System.String,System.Int32)">
+            <summary>
+            initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host and port property.
+            </summary>
+        </member>
+        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host and port property.
+            </summary>
+        </member>
+        <member name="P:Ceeji.Caching.RedisBoostCachingProvider.Host">
+            <summary>
+            Gets or sets the host address of redis server
+            </summary>
+        </member>
+        <member name="P:Ceeji.Caching.RedisBoostCachingProvider.Port">
+            <summary>
+            Gets or sets the port of the redis server, default 6379
+            </summary>
+        </member>
+        <member name="P:Ceeji.Caching.RedisBoostCachingProvider.Database">
+            <summary>
+            Gets or sets the database of the redis server, default 0
+            </summary>
+        </member>
+        <member name="F:Ceeji.Caching.RedisBoostCachingProvider.rwLock">
+            <summary>
+            A lock to make sure when the environment
+            </summary>
+        </member>
+    </members>
+</doc>

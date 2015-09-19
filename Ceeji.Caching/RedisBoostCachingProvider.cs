@@ -66,28 +66,28 @@ namespace Ceeji.Caching {
 
         #region protected members
         protected override Task OnIncrementAsync(string key) {
-            return client.IncrAsync(key);
+            using (rwLock.ReaderLock()) {
+                return client.IncrAsync(key);
+            }
         }
 
         protected override async Task OnRestoreEnvironment() {
-            rwLock.EnterWriteLock();
+            using (rwLock.WriterLock()) {
+                try {
+                    if (client != null) {
+                        try {
+                            await client.DisconnectAsync();
+                        }
+                        catch { }
+                        try {
+                            client.Dispose();
+                        }
+                        catch { }
+                    }
 
-            try {
-                if (client != null) {
-                    try {
-                        await client.DisconnectAsync();
-                    }
-                    catch { }
-                    try {
-                        client.Dispose();
-                    }
-                    catch { }
+                    client = await RedisBoost.RedisClient.ConnectAsync(Host, Port, Database);
                 }
-                client = await RedisBoost.RedisClient.ConnectAsync(Host, Port, Database);
-            }
-            catch { }
-            finally {
-                rwLock.ExitWriteLock();
+                catch { }
             }
         }
 
@@ -95,7 +95,7 @@ namespace Ceeji.Caching {
         /// <summary>
         /// A lock to make sure when the environment
         /// </summary>
-        private ReaderWriterLockSlim rwLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+        private Nito.AsyncEx.AsyncReaderWriterLock rwLock = new Nito.AsyncEx.AsyncReaderWriterLock();
 
         #endregion
 
@@ -129,16 +129,112 @@ namespace Ceeji.Caching {
             // GC.SuppressFinalize(this);
         }
 
-        protected override Task OnSetExpireTimeAsync(string key, TimeSpan interval) {
-            return client.PExpireAsync(key, (int)interval.TotalMilliseconds);
+        protected override async Task OnSetExpireTimeAsync(string key, TimeSpan interval) {
+            using (rwLock.ReaderLock())
+                await client.PExpireAsync(key, (int)interval.TotalMilliseconds);
         }
 
-        protected override Task OnSetAddAsync(string key, params string[] value) {
-            return client.SAddAsync(key, value);
+        protected override async Task OnSetAddAsync(string key, params string[] value) {
+            using (rwLock.ReaderLock())
+                await client.SAddAsync(key, value);
         }
 
-        protected override Task<bool> KeyExistsAsync(string key) {
-            return client.ExistsAsync(key);
+        protected override async Task<bool> OnKeyExistsAsync(string key) {
+            using (rwLock.ReaderLock()) {
+                var ret = await client.ExistsAsync(key);
+                return ret == 1;
+            }
+        }
+
+        protected override async Task<long> OnSetLengthAsync(string key) {
+            using (rwLock.ReaderLock())
+                return await client.SCardAsync(key);
+        }
+
+        protected override async Task<IEnumerable<string>> OnSetMembersAsync(string key) {
+            using (rwLock.ReaderLock()) {
+                var ret = await client.SMembersAsync(key);
+
+                return ret.Select(x => x.As<string>());
+            }
+        }
+
+        protected override async Task<string> OnStringGetAsync(string key) {
+            using (rwLock.ReaderLock()) {
+                return (await client.GetAsync(key)).As<string>();
+            }
+        }
+
+        protected override async Task<string[]> OnStringGetAsync(string[] key) {
+            using (rwLock.ReaderLock()) {
+                var ret = await client.MGetAsync(key);
+                var arr = new string[ret.Length];
+
+                for (var i = 0; i < ret.Length; ++i)
+                    arr[i] = ret[i].As<string>();
+
+                return arr;
+            }
+        }
+
+        protected override async Task OnSetRemoveAsync(string key, string[] keys) {
+            using (rwLock.ReaderLock()) {
+                await client.SRemAsync(key, keys);
+            }
+        }
+
+        protected override async Task<string[]> OnSetIntersectAsync(params string[] keys) {
+            using (rwLock.ReaderLock()) {
+                var ret = await client.SInterAsync(keys);
+                var arr = new string[ret.Length];
+
+                for (var i = 0; i < ret.Length; ++i)
+                    arr[i] = ret[i].As<string>();
+
+                return arr;
+            }
+        }
+
+        protected override async Task OnSet(string key, string value) {
+            using (rwLock.ReaderLock()) {
+                await client.SetAsync(key, value);
+            }
+        }
+
+        protected override async Task OnSet(string key, byte[] value) {
+            using (rwLock.ReaderLock()) {
+                await client.SetAsync(key, value);
+            }
+        }
+
+        protected override async Task<bool> OnSet(string key, byte[] value, bool canReplace = true) {
+
+            if (!canReplace) {
+                if ((await KeyExistsAsync(key)))
+                    return false;
+            }
+
+            await OnSet(key, value);
+            return true;
+        }
+
+        protected override async Task<bool> OnSet(string key, string value, bool canReplace = true) {
+            if (!canReplace) {
+                if ((await KeyExistsAsync(key)))
+                    return false;
+
+            }
+
+            await OnSet(key, value);
+            return true;
+        }
+
+        protected async override Task OnKeyRemoveAsync(params string[] keys) {
+            using (rwLock.ReaderLock()) {
+                foreach (var key in keys) {
+                    await client.DelAsync(key);
+                }
+            }
         }
         #endregion
     }

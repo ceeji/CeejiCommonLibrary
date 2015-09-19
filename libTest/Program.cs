@@ -29,15 +29,16 @@ namespace libTest {
         }
 
         private async static Task test() {
-            var client = await RedisBoost.RedisClient.ConnectAsync("127.0.0.1", 6379);
+            Console.WriteLine(1);
+            var client = new Ceeji.Caching.RedisBoostCachingProvider("localhost", 6379);
 
-            for (var i = 0; i < 60; ++i) {
-                var ret = await client.LIndexAsync("fastlog", 0);
-                var s = ret.As<string>();
-                Console.WriteLine(s);
-
-                Thread.Sleep(1000);
-            }
+            Console.WriteLine(2);
+            await client.SetAddAsync("settest", "1", "2", "3");
+            var count = await client.SetLengthAsync("settest");
+            Console.WriteLine(3);
+            var members = await client.SetMembersAsync("settest");
+            Console.WriteLine(4);
+            Console.WriteLine($"{count}, {string.Join(",", members)}");
         }
     }
 }
