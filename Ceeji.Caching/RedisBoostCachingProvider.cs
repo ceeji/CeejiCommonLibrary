@@ -236,6 +236,34 @@ namespace Ceeji.Caching {
                 }
             }
         }
+
+        protected override async Task OnListLeftPushAsync(string key, string val) {
+            using (rwLock.ReaderLock()) {
+                await client.LPushAsync(key, val);
+            }
+        }
+
+        protected override async Task OnListRightPopAsync(string key) {
+            using (rwLock.ReaderLock()) {
+                await client.RPopAsync(key);
+            }
+        }
+
+        protected async override Task<long> OnListLengthAsync(string key) {
+            using (rwLock.ReaderLock()) {
+                return await client.LLenAsync(key);
+            }
+        }
+
+        protected async override Task<IList<string>> OnListRangeAsync(string key, int pos, int length) {
+            using (rwLock.ReaderLock()) {
+                var ret = new List<string>();
+                foreach (var item in await client.LRangeAsync(key, pos, pos + length)) {
+                    ret.Add(item.As<string>());
+                }
+                return ret;
+            }
+        }
         #endregion
     }
 }

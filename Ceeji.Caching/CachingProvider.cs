@@ -138,6 +138,41 @@ namespace Ceeji.Caching {
             return true;
         }
 
+        public Task ListLeftPushAsync(string key, string val) {
+            return tryDoCommand(() => OnListLeftPushAsync(key, val));
+        }
+
+        public Task ListRightPopAsync(string key) {
+            return tryDoCommand(() => OnListRightPopAsync(key));
+        }
+
+        public async Task<int> ListLengthAsync(string key) {
+            return (int)(await tryDoCommand(() => OnListLengthAsync(key)));
+        }
+
+        public int ListLength(string key) {
+            int val = -1;
+            Task.Run(async () => {
+                val = (int)(await tryDoCommand(() => OnListLengthAsync(key)));
+            }).Wait();
+
+            return val; 
+        }
+
+        public async Task<IList<string>> ListRangeAsync(string key, int pos, int length) {
+            return (await tryDoCommand(() => OnListRangeAsync(key, pos, length)));
+        }
+
+        public IList<string> ListRange(string key, int pos, int length) {
+            IList<string> val = null;
+
+            Task.Run(async () => {
+                val = (await tryDoCommand(() => OnListRangeAsync(key, pos, length)));
+            }).Wait();
+
+            return val;
+        }
+
         public async Task<bool> SetAsync(string key, byte[] val, bool canReplace, TimeSpan? timeout) {
             if (!(await tryDoCommand(() => OnSet(key, val, canReplace))))
                 return false;
@@ -180,6 +215,7 @@ namespace Ceeji.Caching {
         protected abstract Task<string[]> OnStringGetAsync(string[] key);
 
         protected abstract Task<long> OnSetLengthAsync(string key);
+        protected abstract Task<long> OnListLengthAsync(string key);
         protected abstract Task<bool> OnKeyExistsAsync(string key);
 
         protected abstract Task OnSet(string key, string value);
@@ -188,9 +224,12 @@ namespace Ceeji.Caching {
         protected abstract Task<bool> OnSet(string key, string value, bool canReplace);
         protected abstract Task<bool> OnSet(string key, byte[] value, bool canReplace);
 
+        protected abstract Task OnListLeftPushAsync(string key, string val);
+        protected abstract Task OnListRightPopAsync(string key);
         protected abstract Task OnKeyRemoveAsync(params string[] key);
 
         protected abstract Task<string[]> OnSetIntersectAsync(params string[] keys);
+        protected abstract Task<IList<string>> OnListRangeAsync(string key, int pos, int length);
 
         /// <summary>
         /// Try to restore connection and others in derived class

@@ -9,6 +9,16 @@
             与运行环境有关的一些数据的静态方法。
             </summary>
         </member>
+        <member name="P:Ceeji.AppContext.BasePath">
+            <summary>
+            获取当前程序的运行路径。此路径以 \ 结尾。
+            </summary>
+        </member>
+        <member name="P:Ceeji.AppContext.CurrentExecutingFileName">
+            <summary>
+            获取当前正在执行的【可执行文件】的文件名。
+            </summary>
+        </member>
         <member name="M:Ceeji.AppContext.Restart(System.Int32)">
             <summary>
             重新启动当前文件。如果等待时间大于 0，则该文件在等待期间并不会被占用，可以被更新。
@@ -19,6 +29,7 @@
             创建临时文件，此文件拥有指定的文件扩展名，并保证不和其他磁盘文件冲突。
             </summary>
             <returns></returns>
+            <exception cref="T:System.IO.IOException">当在内置的尝试次数内无法找到不存在的临时文件名或磁盘不可写时抛出此错误。</exception>
         </member>
         <member name="M:Ceeji.AppContext.HasAnotherIntance(System.String)">
             <summary>
@@ -26,16 +37,6 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
-        </member>
-        <member name="P:Ceeji.AppContext.BasePath">
-            <summary>
-            获取当前程序的运行路径。此路径以 \ 结尾。
-            </summary>
-        </member>
-        <member name="P:Ceeji.AppContext.CurrentExecutingFileName">
-            <summary>
-            获取当前正在执行的【可执行文件】的文件名。
-            </summary>
         </member>
         <member name="T:Ceeji.Configuration">
             <summary>
@@ -52,6 +53,13 @@
             创建 Ceeji.Testing.Configuration.TestingConfiguration 的新实例。
             </summary>
             <param name="source">要从中复制数据的 System.Collections.Generic.IDictionary&lt;TKey, TValue&gt;。 </param>
+        </member>
+        <member name="P:Ceeji.Configuration.Item(System.String)">
+            <summary>
+            返回或设置指定 key 的元素。
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:Ceeji.Configuration.LoadFromXMLFile(System.String,System.Text.Encoding)">
             <summary>
@@ -74,13 +82,6 @@
             <summary>
             序列化配置到文本。
             </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Ceeji.Configuration.Item(System.String)">
-            <summary>
-            返回或设置指定 key 的元素。
-            </summary>
-            <param name="key"></param>
             <returns></returns>
         </member>
         <member name="T:Ceeji.ConfigItemPair`2">
@@ -116,31 +117,6 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.SerializeToBinary">
-            <summary>
-            序列化 CPK 节点到二进制数据中。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.SerializeToStream(System.IO.Stream)">
-            <summary>
-            序列化 CPK 节点到流中。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.DeserializeFromStream(System.IO.Stream)">
-            <summary>
-            从流中反序列化 CPK 节点。
-            </summary>
-            <param name="s"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.GetEnumerator">
-            <summary>
-            返回子节点的枚举数。只在 List 和 Array 类型的元素中有效。
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKNode.Name">
             <summary>
             返回或设置 CPK 节点的名称。
@@ -158,16 +134,41 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.SerializeToBinary">
+            <summary>
+            序列化 CPK 节点到二进制数据中。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.SerializeToStream(System.IO.Stream)">
+            <summary>
+            序列化 CPK 节点到流中。
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKNode.SerializedLength">
             <summary>
             返回序列化 CPK 节点到流中的长度。
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.DeserializeFromStream(System.IO.Stream)">
+            <summary>
+            从流中反序列化 CPK 节点。
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKNode.Type">
             <summary>
             返回此 CPKNode 的类型。
             </summary>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKNode.GetEnumerator">
+            <summary>
+            返回子节点的枚举数。只在 List 和 Array 类型的元素中有效。
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Ceeji.Data.BinaryPackage.CPKPackage">
             <summary>
@@ -195,12 +196,6 @@
             <param name="stream">要从中读取的流。</param>
             <param name="expectedContentType">正文类型的期待值，如果不是该值，会抛出异常。</param>
             <exception cref="T:System.IO.InvalidDataException"></exception>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKPackage.WriteToStream(System.IO.Stream)">
-            <summary>
-            将包的内容写入指定的流。
-            </summary>
-            <param name="stream"></param>
         </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKPackage.FormatVersion">
             <summary>
@@ -238,6 +233,12 @@
             <summary>
             返回或设置 CPK 文件的标记。
             </summary>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKPackage.WriteToStream(System.IO.Stream)">
+            <summary>
+            将包的内容写入指定的流。
+            </summary>
+            <param name="stream"></param>
         </member>
         <member name="T:Ceeji.Data.BinaryPackage.CPKFlags">
             <summary>
@@ -435,34 +436,6 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.SerializeToBinary">
-            <summary>
-            序列化 CPK 值到二进制数据中。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.SerializeToStream(System.IO.Stream)">
-            <summary>
-            序列化 CPK 节点到流中。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.getRawValueLength">
-            <summary>
-            获取数据的原始值的长度。
-            </summary>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.WriteRawValueToStream(System.IO.Stream)">
-            <summary>
-            获取数据的原始值。
-            </summary>
-        </member>
-        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.GetEnumerator">
-            <summary>
-            返回子节点的枚举数。只在 List 和 Array 类型的元素中有效。
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKValue.Value">
             <summary>
             返回或设置此 CPKValue 的值。对于一般元素，返回对应的 .NET 类型。对于数组，使用 IEnumerable&lt;CPKValue&gt; 类型。对于列表，使用 IEnumerable&lt;CPKNode&gt; 类型。
@@ -492,6 +465,18 @@
             返回 CPK 节点内的所有数组元素的集合。只有 Array 类型的节点才可以使用。（List 类型的节点，请使用 Nodes 访问其子节点）
             </summary>
         </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.SerializeToBinary">
+            <summary>
+            序列化 CPK 值到二进制数据中。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.SerializeToStream(System.IO.Stream)">
+            <summary>
+            序列化 CPK 节点到流中。
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKValue.RawValue">
             <summary>
             获取数据的原始值。
@@ -502,10 +487,26 @@
             获取数据的原始值的长度。
             </summary>
         </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.getRawValueLength">
+            <summary>
+            获取数据的原始值的长度。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.WriteRawValueToStream(System.IO.Stream)">
+            <summary>
+            获取数据的原始值。
+            </summary>
+        </member>
         <member name="P:Ceeji.Data.BinaryPackage.CPKValue.Type">
             <summary>
             获取节点的类型。
             </summary>
+        </member>
+        <member name="M:Ceeji.Data.BinaryPackage.CPKValue.GetEnumerator">
+            <summary>
+            返回子节点的枚举数。只在 List 和 Array 类型的元素中有效。
+            </summary>
+            <returns></returns>
         </member>
         <member name="F:Ceeji.Data.Codec.LZ4.LZ4Codec.MEMORY_USAGE">
             <summary>
@@ -698,6 +699,25 @@
         <member name="T:Ceeji.Data.Codec.LZ4.LZ4Stream">
             <summary>Block compression stream. Allows to use LZ4 for stream compression.</summary>
         </member>
+        <member name="T:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags">
+            <summary>
+            Flags of a chunk. Please note, this 
+            </summary>
+        </member>
+        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.None">
+            <summary>None.</summary>
+        </member>
+        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.Compressed">
+            <summary>Set if chunk is compressed.</summary>
+        </member>
+        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.HighCompression">
+            <summary>Set if high compression has been selected (does not affect decoder, 
+            but might be useful when rewriting)</summary>
+        </member>
+        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.Passes">
+            <summary>3 bits for number of passes. Currently only 1 pass (value 0) 
+            is supported.</summary>
+        </member>
         <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream._innerStream">
             <summary>The inner stream.</summary>
         </member>
@@ -720,7 +740,7 @@
             <summary>The offset in a buffer.</summary>
         </member>
         <member name="M:Ceeji.Data.Codec.LZ4.LZ4Stream.#ctor(System.IO.Stream,System.IO.Compression.CompressionMode,System.Boolean,System.Int32)">
-            <summary>Initializes a new instance of the <see cref="T:Ceeji.Data.Codec.LZ4.LZ4Stream"/> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:Ceeji.Data.Codec.LZ4.LZ4Stream" /> class.</summary>
             <param name="innerStream">The inner stream.</param>
             <param name="compressionMode">The compression mode.</param>
             <param name="highCompression">if set to <c>true</c> [high compression].</param>
@@ -769,8 +789,28 @@
             <returns><c>true</c> if next has been read, or <c>false</c> if it is legitimate end of file.
             Throws <see cref="T:System.IO.EndOfStreamException"/> if end of stream was unexpected.</returns>
         </member>
+        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanRead">
+            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports reading.</summary>
+            <returns>true if the stream supports reading; otherwise, false.</returns>
+        </member>
+        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanSeek">
+            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports seeking.</summary>
+            <returns>true if the stream supports seeking; otherwise, false.</returns>
+        </member>
+        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanWrite">
+            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports writing.</summary>
+            <returns>true if the stream supports writing; otherwise, false.</returns>
+        </member>
         <member name="M:Ceeji.Data.Codec.LZ4.LZ4Stream.Flush">
             <summary>When overridden in a derived class, clears all buffers for this stream and causes any buffered data to be written to the underlying device.</summary>
+        </member>
+        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.Length">
+            <summary>When overridden in a derived class, gets the length in bytes of the stream.</summary>
+            <returns>A long value representing the length of the stream in bytes.</returns>
+        </member>
+        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.Position">
+            <summary>When overridden in a derived class, gets or sets the position within the current stream.</summary>
+            <returns>The current position within the stream.</returns>
         </member>
         <member name="M:Ceeji.Data.Codec.LZ4.LZ4Stream.ReadByte">
             <summary>Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.</summary>
@@ -806,45 +846,6 @@
         <member name="M:Ceeji.Data.Codec.LZ4.LZ4Stream.Dispose(System.Boolean)">
             <summary>Releases the unmanaged resources used by the <see cref="T:System.IO.Stream" /> and optionally releases the managed resources.</summary>
             <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-        </member>
-        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanRead">
-            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports reading.</summary>
-            <returns>true if the stream supports reading; otherwise, false.</returns>
-        </member>
-        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanSeek">
-            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports seeking.</summary>
-            <returns>true if the stream supports seeking; otherwise, false.</returns>
-        </member>
-        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.CanWrite">
-            <summary>When overridden in a derived class, gets a value indicating whether the current stream supports writing.</summary>
-            <returns>true if the stream supports writing; otherwise, false.</returns>
-        </member>
-        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.Length">
-            <summary>When overridden in a derived class, gets the length in bytes of the stream.</summary>
-            <returns>A long value representing the length of the stream in bytes.</returns>
-        </member>
-        <member name="P:Ceeji.Data.Codec.LZ4.LZ4Stream.Position">
-            <summary>When overridden in a derived class, gets or sets the position within the current stream.</summary>
-            <returns>The current position within the stream.</returns>
-        </member>
-        <member name="T:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags">
-            <summary>
-            Flags of a chunk. Please note, this 
-            </summary>
-        </member>
-        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.None">
-            <summary>None.</summary>
-        </member>
-        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.Compressed">
-            <summary>Set if chunk is compressed.</summary>
-        </member>
-        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.HighCompression">
-            <summary>Set if high compression has been selected (does not affect decoder, 
-            but might be useful when rewriting)</summary>
-        </member>
-        <member name="F:Ceeji.Data.Codec.LZ4.LZ4Stream.ChunkFlags.Passes">
-            <summary>3 bits for number of passes. Currently only 1 pass (value 0) 
-            is supported.</summary>
         </member>
         <member name="T:Ceeji.Data.CompressionAlgorithm">
             <summary>
@@ -1216,14 +1217,6 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Ceeji.Data.HashHelper.GetHashedPassword(System.String,System.String)">
-            <summary>
-            将密码哈希，使用盐。用户每次创建或者修改密码一定要使用一个新的随机的盐。
-            </summary>
-            <param name="password"></param>
-            <param name="salt"></param>
-            <returns></returns>
-        </member>
         <member name="P:Ceeji.Data.HashHelper.DefaultEncoding">
             <summary>
             设置对字符串哈希时使用的默认编码。
@@ -1249,103 +1242,12 @@
             获取 MD5 算法的实例。
             </summary>
         </member>
-        <member name="T:System.IEnumerableExt">
+        <member name="M:Ceeji.Data.HashHelper.GetHashedPassword(System.String,System.String)">
             <summary>
-            提供对列表、可枚举对象和集合的迭代方法。
+            将密码哈希，使用盐。用户每次创建或者修改密码一定要使用一个新的随机的盐。
             </summary>
-        </member>
-        <member name="M:System.IEnumerableExt.Iterate(System.Collections.IEnumerable,System.Action{System.Object})">
-            <summary>
-            在指定的元素中运行迭代函数。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="act">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.FindAll(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
-            <summary>
-            在指定的元素中运行迭代函数。返回一个枚举数，包括所有委托返回 true 的对象。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="func">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.Iterate``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
-            <summary>
-            在指定的元素中运行迭代函数。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="act">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.FindAll``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
-            <summary>
-            在指定的元素中运行迭代函数。返回一个枚举数，包括所有委托返回 true 的对象。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="func">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.Iterate``1(System.Collections.Generic.IList{``0},System.Action{``0,System.Int32})">
-            <summary>
-            在指定的列表中运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="act">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.FindAll``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Int32,System.Boolean})">
-            <summary>
-            在指定的列表中运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="func">要执行的迭代委托。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.ParallelIterate``1(System.Collections.Generic.IList{``0},System.Action{``0,System.Int32})">
-            <summary>
-            在指定的列表中并行运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。【需要 .NET Framework 4，否则返回 NotSupportedException】
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="func">要执行的迭代委托。</param>
-            <exception cref="T:System.NotSupportedException"></exception>
-        </member>
-        <member name="M:System.IEnumerableExt.Fill(System.Collections.IList,System.Object)">
-            <summary>
-            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="val">要填充的值。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.Fill``1(System.Collections.Generic.IList{``0},``0)">
-            <summary>
-            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。对于引用类型，这可能导致所有的元素都是同一个元素的引用。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="val">要填充的值。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.Fill``1(System.Collections.Generic.IList{``0},System.Func{System.Int32,``0})">
-            <summary>
-            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="val">要填充的值。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.WithIndex``1(System.Collections.Generic.IList{``0})">
-            <summary>
-            返回 IList 的带有索引的包装。
-            </summary>
-            <param name="who">要为哪个可迭代对象执行迭代。</param>
-            <param name="val">要填充的值。</param>
-        </member>
-        <member name="M:System.IEnumerableExt.ToMultidimensionalArray``1(``0[][])">
-            <summary>
-            将指定的“数组的数组”转换为多维数组。
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.IEnumerableExt.ToMultidimensionalArray``1(System.Collections.Generic.IList{``0[]})">
-            <summary>
-            将指定的“数组的数组”转换为多维数组。
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="list"></param>
+            <param name="password"></param>
+            <param name="salt"></param>
             <returns></returns>
         </member>
         <member name="T:Ceeji.Data.LZ4Algorithm">
@@ -1368,16 +1270,6 @@
             代表一个简单的，线程安全的对象池对象。
             </summary>
             <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:Ceeji.Data.ObjectPool`1.DefaultMinCount">
-            <summary>
-            获取默认的最少可用对象数量。
-            </summary>
-        </member>
-        <member name="F:Ceeji.Data.ObjectPool`1.DefaultMaxCount">
-            <summary>
-            获取默认的最多可用对象数量。
-            </summary>
         </member>
         <member name="M:Ceeji.Data.ObjectPool`1.#ctor(System.Func{`0})">
             <summary>
@@ -1412,23 +1304,6 @@
             <param name="resetFactory">设置重置对象以便重新使用的工厂方法。</param>
             <param name="disposeFactory">设置彻底释放对象的工厂方法。</param>
         </member>
-        <member name="M:Ceeji.Data.ObjectPool`1.recycle(Ceeji.Data.PooledObject{`0})">
-            <summary>
-            回收对象。
-            </summary>
-            <param name="obj"></param>
-        </member>
-        <member name="M:Ceeji.Data.ObjectPool`1.Get">
-            <summary>
-            获得一个可用的对象。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.ObjectPool`1.ensureSize">
-            <summary>
-            确保数量符合要求。
-            </summary>
-        </member>
         <member name="P:Ceeji.Data.ObjectPool`1.CreateFactory">
             <summary>
             获取或设置创建对象的工厂方法。
@@ -1459,6 +1334,33 @@
             获取对象池中对象的最大数目。系统将维持对象池中至多存在这样数目的对象。
             </summary>
         </member>
+        <member name="F:Ceeji.Data.ObjectPool`1.DefaultMinCount">
+            <summary>
+            获取默认的最少可用对象数量。
+            </summary>
+        </member>
+        <member name="F:Ceeji.Data.ObjectPool`1.DefaultMaxCount">
+            <summary>
+            获取默认的最多可用对象数量。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Data.ObjectPool`1.recycle(Ceeji.Data.PooledObject{`0})">
+            <summary>
+            回收对象。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Ceeji.Data.ObjectPool`1.Get">
+            <summary>
+            获得一个可用的对象。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.ObjectPool`1.ensureSize">
+            <summary>
+            确保数量符合要求。
+            </summary>
+        </member>
         <member name="T:Ceeji.Data.PooledObject`1">
             <summary>
             代表被对象池所管理的对象。
@@ -1470,287 +1372,9 @@
             获取对象的值。
             </summary>
         </member>
-        <member name="M:System.StreamExt.Write(System.IO.Stream,System.Byte[],System.Boolean)">
-            <summary>
-            写指定的 buffer 的全部数据到流中。允许直接刷新缓冲区。
-            </summary>
-            <param name="s">要写入的流。</param>
-            <param name="buffer">要写入的数据。</param>
-            <param name="flush">是否在写入后刷新缓冲区。</param>
-        </member>
-        <member name="M:System.StreamExt.WriteWithEncoding(System.IO.Stream,System.String,System.Text.Encoding,System.Boolean)">
-            <summary>
-            写指定的字符串数据到流中。允许直接刷新缓冲区。
-            </summary>
-            <param name="content">要写入的流。</param>
-            <param name="encode">字符编码，默认为 UTF-8。</param>
-            <param name="flush">是否在写入后刷新缓冲区。</param>
-        </member>
-        <member name="M:System.StreamExt.Write(System.IO.Stream,System.String,System.Boolean)">
-            <summary>
-            写指定的字符串数据到流中。允许直接刷新缓冲区。
-            </summary>
-            <param name="content">要写入的流。</param>
-            <param name="flush">是否在写入后刷新缓冲区。</param>
-        </member>
-        <member name="T:Ceeji.Delayed`1">
-            <summary>
-            Provides support for lazy initialization. 
-            </summary>
-            <typeparam name="T">Specifies the type of element being laziliy initialized.</typeparam> 
-            <remarks> 
-            <para>
-            By default, all public and protected members of <see cref="T:Ceeji.Delayed`1"> are thread-safe and may be used 
-            concurrently from multiple threads.  These thread-safety guarantees may be removed optionally and per instance
-            using parameters to the type's constructors.
-            </see></para>
-            </remarks> 
-        </member>
-        <member name="M:Ceeji.Delayed`1.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ceeji.Delayed{T}"> class that
-            uses <typeparamref name="T">'s default constructor for lazy initialization.
-            </typeparamref></see></summary> 
-            <remarks>
-            An instance created with this constructor may be used concurrently from multiple threads. 
-            </remarks> 
-        </member>
-        <!-- 对于成员“M:Ceeji.Delayed`1.#ctor(System.Func{`0})”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:Ceeji.Delayed`1.#ctor(System.Boolean)”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:Ceeji.Delayed`1.#ctor(Ceeji.DelayThreadSafetyMode)”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:Ceeji.Delayed`1.#ctor(System.Func{`0},System.Boolean)”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:Ceeji.Delayed`1.#ctor(System.Func{`0},Ceeji.DelayThreadSafetyMode)”忽略有格式错误的 XML 注释 -->
-        <member name="M:Ceeji.Delayed`1.GetObjectFromMode(Ceeji.DelayThreadSafetyMode)">
-            <summary> 
-            Static helper function that returns an object based on the given mode. it also throws an exception if the mode is invalid
-            </summary>
-        </member>
-        <member name="M:Ceeji.Delayed`1.OnSerializing(System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Forces initialization during serialization.</summary> 
-            <param name="context">The StreamingContext for the serialization operation. </param>
-        </member>
-        <member name="M:Ceeji.Delayed`1.ToString">
-            <summary>Creates and returns a string representation of this instance.</summary> 
-            <returns>The result of calling <see cref="M:System.Object.ToString"> on the <see cref="P:Ceeji.Delayed`1.Value">.</see></see></returns>
-            <exception cref="T:System.NullReferenceException"> 
-            The <see cref="P:Ceeji.Delayed`1.Value"> is null.
-            </see></exception>
-        </member>
-        <member name="M:Ceeji.Delayed`1.LazyInitValue">
-            <summary>
-            local helper method to initialize the value 
-            </summary>
-            <returns>The inititialized T value</returns>
-        </member>
-        <member name="M:Ceeji.Delayed`1.CreateValue">
-            <summary>Creates an instance of T using m_valueFactory in case its not null or use reflection to create a new T()</summary> 
-            <returns>An instance of Boxed.</returns>
-        </member>
-        <member name="P:Ceeji.Delayed`1.ValueForDebugDisplay">
-            <summary>
-            Gets the value of the Delayed&lt;T&gt; for debugging display purposes.
-            </summary>
-        </member>
-        <member name="P:Ceeji.Delayed`1.Mode">
-            <summary>
-            Gets a value indicating whether this instance may be used concurrently from multiple threads. 
-            </summary>
-        </member>
-        <member name="P:Ceeji.Delayed`1.IsValueFaulted">
-            <summary> 
-            Gets whether the value creation is faulted or not
-            </summary> 
-        </member>
-        <member name="P:Ceeji.Delayed`1.IsValueCreated">
-            <summary>Gets a value indicating whether the <see cref="T:Ceeji.Delayed{T}"> has been initialized. 
-            </see></summary> 
-            <value>true if the <see cref="T:Ceeji.Delayed{T}"> instance has been initialized;
-            otherwise, false.</see></value> 
-            <remarks>
-            The initialization of a <see cref="T:Ceeji.Delayed{T}"> instance may result in either
-            a value being produced or an exception being thrown.  If an exception goes unhandled during initialization,
-            the <see cref="T:Ceeji.Delayed{T}"> instance is still considered initialized, and that exception 
-            will be thrown on subsequent accesses to <see cref="P:Ceeji.Delayed`1.Value">.  In such cases, <see cref="P:Ceeji.Delayed`1.IsValueCreated">
-            will return true. 
-            </see></see></see></see></remarks> 
-        </member>
-        <member name="P:Ceeji.Delayed`1.Value">
-            <summary>Gets the lazily initialized value of the current <see cref="T:Ceeji.Delayed{T}">.</see></summary>
-            <value>The lazily initialized value of the current <see cref="T:Ceeji.Delayed{T}">.</see></value> 
-            <exception cref="T:System.MissingMemberException">
-            The <see cref="T:Ceeji.Delayed{T}"> was initialized to use the default constructor 
-            of the type being lazily initialized, and that type does not have a public, parameterless constructor. 
-            </see></exception>
-            <exception cref="T:System.MemberAccessException"> 
-            The <see cref="T:Ceeji.Delayed{T}"> was initialized to use the default constructor
-            of the type being lazily initialized, and permissions to access the constructor were missing.
-            </see></exception>
-            <exception cref="T:System.InvalidOperationException"> 
-            The <see cref="T:Ceeji.Delayed{T}"> was constructed with the <see cref="T:System.Threading.DelayThreadSafetyMode.ExecutionAndPublication"> or
-            <see cref="T:System.Threading.DelayThreadSafetyMode.None">  and the initialization function attempted to access <see cref="P:Ceeji.Delayed`1.Value"> on this instance. 
-            </see></see></see></see></exception> 
-            <remarks>
-            If <see cref="P:Ceeji.Delayed`1.IsValueCreated"> is false, accessing <see cref="P:Ceeji.Delayed`1.Value"> will force initialization. 
-            Please <see cref="!:System.Threading.DelayThreadSafetyMode"> for more information on how <see cref="T:Ceeji.Delayed{T}"> will behave if an exception is thrown
-            from initialization delegate.
-            </see></see></see></see></remarks>
-        </member>
-        <member name="T:Ceeji.Delayed`1.Boxed">
-            <summary>
-            wrapper class to box the initialized value, this is mainly created to avoid boxing/unboxing the value each time the value is called in case T is 
-            a value type 
-            </summary>
-        </member>
-        <member name="T:Ceeji.Delayed`1.LazyInternalExceptionHolder">
-            <summary>
-            Wrapper class to wrap the excpetion thrown by the value factory
-            </summary> 
-        </member>
-        <!-- 对于成员“T:Ceeji.System_LazyDebugView`1”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:Ceeji.System_LazyDebugView`1.#ctor(Ceeji.Delayed{`0})”忽略有格式错误的 XML 注释 -->
-        <member name="P:Ceeji.System_LazyDebugView`1.IsValueCreated">
-            <summary>Returns whether the Lazy object is initialized or not.</summary>
-        </member>
-        <member name="P:Ceeji.System_LazyDebugView`1.Value">
-            <summary>Returns the value of the Lazy object.</summary>
-        </member>
-        <member name="P:Ceeji.System_LazyDebugView`1.Mode">
-            <summary>Returns the execution mode of the Lazy object</summary> 
-        </member>
-        <member name="P:Ceeji.System_LazyDebugView`1.IsValueFaulted">
-            <summary>Returns the execution mode of the Lazy object</summary>
-        </member>
-        <member name="F:Ceeji.DelayThreadSafetyMode.None">
-            <summary>
-            Ceeji.Delayed 实例不是线程安全的；如果从多个线程访问该实例，则其行为不确定。 仅应在高性能至关重要并且保证决不会从多个线程初始化 Ceeji.Delayed 实例时才使用该模式。 如果使用指定初始化方法（valueFactory 参数）的 Ceeji.Delayed 构造函数，并且如果此初始化方法在您首次调用
-                Ceeji.Delayed.Value 属性时引发了一个异常（或无法处理异常），则会缓存该异常并在随后调用 Ceeji.Delayed.Value
-                属性时再次引发该异常。 如果您使用不指定初始化方法的 Ceeji.Delayed 构造函数，则不会缓存 T 默认构造函数引发的异常。 在此情况下，对
-                Ceeji.Delayed.Value 属性进行后续调用可成功初始化 Ceeji.Delayed 实例。 如果初始化方法递归访问 Ceeji.Delayed
-               实例的 Ceeji.Delayed.Value 属性，则引发 System.InvalidOperationException。
-            </summary>
-        </member>
-        <member name="F:Ceeji.DelayThreadSafetyMode.PublicationOnly">
-            <summary>
-            当多个线程尝试同时初始化一个 Ceeji.Delayed 实例时，允许所有线程都运行初始化方法（如果没有初始化方法，则为默认构造函数）。 完成初始化的第一个线程设置
-            Ceeji.Delayed 实例的值。 该值将返回给同时运行初始化方法的所有其他线程，除非该初始化方法对这些线程引发异常。 争用线程创建的任何
-             T 实例都将被丢弃。 如果初始化方法对任何线程引发异常，则该异常会从该线程上的 Ceeji.Delayed.Value 属性传播出去。 不缓存该异常。
-             Ceeji.Delayed.IsValueCreated 属性的值仍然为 false，并且随后通过其中引发异常的线程或通过其他线程对 Ceeji.Delayed.Value
-             属性的调用会导致初始化方法再次运行。 如果初始化方法递归访问 Ceeji.Delayed 实例的 Ceeji.Delayed.Value 属性，则不会引发异常。
-            </summary>
-        </member>
-        <member name="F:Ceeji.DelayThreadSafetyMode.ExecutionAndPublication">
-            <summary>
-                使用锁来确保只有一个线程可以在线程安全的方式下初始化 Ceeji.Delayed 实例。 如果初始化方法（如果没有初始化方法，则为默认构造函数）在内部使用锁，则可能会发生死锁。
-                如果使用指定初始化方法（valueFactory 参数）的 Ceeji.Delayed 构造函数，并且如果此初始化方法在您首次调用 Ceeji.Delayed.Value
-                属性时引发了一个异常（或无法处理异常），则会缓存该异常并在随后调用 Ceeji.Delayed.Value 属性时再次引发该异常。 如果您使用不指定初始化方法的
-                Ceeji.Delayed 构造函数，则不会缓存 T 默认构造函数引发的异常。 在此情况下，对 Ceeji.Delayed.Value 属性进行后续调用可成功初始化
-                Ceeji.Delayed 实例。 如果初始化方法递归访问 Ceeji.Delayed 实例的 Ceeji.Delayed.Value 属性，则引发
-                System.InvalidOperationException。
-            </summary>
-        </member>
-        <member name="M:System.NullableExt.BooleanSelect``1(System.Nullable{System.Boolean},``0,``0,``0)">
-            <summary>
-            针对 bool? 类型的三种状态分别返回不同的值。
-            </summary>
-            <typeparam name="T">值的类型。</typeparam>
-            <param name="v">bool? 类型的值</param>
-            <param name="valTrue">值为 true 时返回的内容</param>
-            <param name="valFalse">值为 false 时返回的内容</param>
-            <param name="valNull">值为 null 时返回的内容</param>
-            <returns></returns>
-        </member>
-        <member name="T:Ceeji.Network.HttpHelper">
-            <summary>
-            用来简化 HTTP 请求和响应的方法集。
-            </summary>
-        </member>
-        <member name="M:Ceeji.Network.HttpHelper.Get(System.Uri,Ceeji.Network.HttpHelper.HttpAsyncCompletedCallback{System.Byte[]},Ceeji.Network.HttpHelper.HttpAsyncProgressCallback)">
-            <summary>
-            使用 GET 方法异步获取某个特定 的 Uri 的资源，获取完成后无论成功还是失败，都将调用 HttpAsyncCompletedCallback 委托，并支持通过 HttpAsyncProgressCallback 报告下载进度。
-            </summary>
-            <param name="uri">要下载的资源。</param>
-            <param name="completedCallback">完成下载后要执行的委托。</param>
-            <param name="progressCallback">进度报告委托，可以为 null。</param>
-        </member>
-        <member name="T:Ceeji.Network.HttpHelper.HttpAsyncCompletedCallback`1">
-            <summary>
-            用于指示 Http 异步操作已经完成。
-            </summary>
-            <typeparam name="TData">指示操作结果的数据类型。</typeparam>
-            <param name="successful">指示操作是否成功完成并得到了数据。</param>
-            <param name="exception">返回操作中发生的异常，或者 null。</param>
-            <param name="result">获取操作结果。</param>
-        </member>
-        <member name="T:Ceeji.Network.HttpHelper.HttpAsyncProgressCallback">
-            <summary>
-            用于获取 Http 异步操作的进度。
-            </summary>
-            <param name="finishedSize"></param>
-            <param name="totalSize"></param>
-            <param name="percent"></param>
-        </member>
-        <member name="T:Ceeji.UI.ObjectDisplayWrapper`1">
-            <summary>
-            一个对象显示包装，用于在列表框、组合框等各种使用对象的 ToString 方法显示文本的地方，以及需要 Debug 实时查看数据的地点，以便方便显示对象的名称或内容，同时保留对象的引用。
-            </summary>
-            <typeparam name="T">对象的类型。</typeparam>
-        </member>
-        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0)">
-            <summary>
-            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其为 null，则使用对象的 ToString() 方法来显示其名称。
-            </summary>
-            <param name="obj">要包装的对象。</param>
-        </member>
-        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0,System.Func{`0,System.String})">
-            <summary>
-            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。尝试使用指定的格式化委托进行格式化，或（如果为 null）使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其也为 null，则使用对象的 ToString() 方法来显示其名称。
-            </summary>
-            <param name="obj">要包装的对象。</param>
-            <param name="textFormatter">要使用的文本格式化器。</param>
-        </member>
-        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0,System.String)">
-            <summary>
-            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。
-            </summary>
-            <param name="obj">要包装的对象。</param>
-            <param name="displayText">要显示的文本。</param>
-        </member>
-        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.ToString">
-            <summary>
-            返回代表被包装对象名称或内容的文本，具体返回内容根据 DisplayText 而定。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.Object">
-            <summary>
-            返回所关联的对象。
-            </summary>
-        </member>
-        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.DisplayText">
-            <summary>
-            设置显示文本。如果为 null，尝试使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其为 null，则使用对象的 ToString() 方法来显示其名称。
-            </summary>
-        </member>
-        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.TextFormatter">
-            <summary>
-            返回或设置文本格式化器。如果为 null，则使用默认值。
-            </summary>
-        </member>
-        <member name="T:Ceeji.UI.ObjectDisplayDefaultFormatter`1">
-            <summary>
-            用于存取对于特定类型的对象如何格式化显示的默认实现的静态类。
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:Ceeji.UI.ObjectDisplayDefaultFormatter`1.TextFormatter">
-            <summary>
-            设置或返回指定类型的默认显示文本格式化器。
-            </summary>
-        </member>
         <member name="T:Ceeji.Data.RandomHelper">
             <summary>
-            提供对随机变量的支持。
+            提供对随机变量的支持。此类中的方法目前不保证线程安全。
             </summary>
         </member>
         <member name="M:Ceeji.Data.RandomHelper.NextStrongRandomString(System.Int32)">
@@ -1853,6 +1477,298 @@
             <param name="source"></param>
             <returns></returns>
         </member>
+        <member name="T:Ceeji.Delayed`1">
+            <summary>
+            Provides support for lazy initialization. 
+            </summary>
+            <typeparam name="T">Specifies the type of element being laziliy initialized.</typeparam> 
+            <remarks> 
+            <para>
+            By default, all public and protected members of <see cref="T:Ceeji.Delayed`1"> are thread-safe and may be used 
+            concurrently from multiple threads.  These thread-safety guarantees may be removed optionally and per instance
+            using parameters to the type's constructors.
+            </see></para>
+            </remarks> 
+        </member>
+        <member name="T:Ceeji.Delayed`1.Boxed">
+            <summary>
+            wrapper class to box the initialized value, this is mainly created to avoid boxing/unboxing the value each time the value is called in case T is 
+            a value type 
+            </summary>
+        </member>
+        <member name="T:Ceeji.Delayed`1.LazyInternalExceptionHolder">
+            <summary>
+            Wrapper class to wrap the excpetion thrown by the value factory
+            </summary> 
+        </member>
+        <member name="M:Ceeji.Delayed`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ceeji.Delayed{T}"> class that
+            uses <typeparamref name="T">'s default constructor for lazy initialization.
+            </typeparamref></see></summary> 
+            <remarks>
+            An instance created with this constructor may be used concurrently from multiple threads. 
+            </remarks> 
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.Delayed`1.#ctor(System.Func{`0})" -->
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.Delayed`1.#ctor(System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.Delayed`1.#ctor(Ceeji.DelayThreadSafetyMode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.Delayed`1.#ctor(System.Func{`0},System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.Delayed`1.#ctor(System.Func{`0},Ceeji.DelayThreadSafetyMode)" -->
+        <member name="M:Ceeji.Delayed`1.GetObjectFromMode(Ceeji.DelayThreadSafetyMode)">
+            <summary> 
+            Static helper function that returns an object based on the given mode. it also throws an exception if the mode is invalid
+            </summary>
+        </member>
+        <member name="M:Ceeji.Delayed`1.OnSerializing(System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Forces initialization during serialization.</summary> 
+            <param name="context">The StreamingContext for the serialization operation. </param>
+        </member>
+        <member name="M:Ceeji.Delayed`1.ToString">
+            <summary>Creates and returns a string representation of this instance.</summary> 
+            <returns>The result of calling <see cref="M:System.Object.ToString"> on the <see cref="P:Ceeji.Delayed`1.Value">.</see></see></returns>
+            <exception cref="T:System.NullReferenceException"> 
+            The <see cref="P:Ceeji.Delayed`1.Value"> is null.
+            </see></exception>
+        </member>
+        <member name="P:Ceeji.Delayed`1.ValueForDebugDisplay">
+            <summary>
+            Gets the value of the Delayed&lt;T&gt; for debugging display purposes.
+            </summary>
+        </member>
+        <member name="P:Ceeji.Delayed`1.Mode">
+            <summary>
+            Gets a value indicating whether this instance may be used concurrently from multiple threads. 
+            </summary>
+        </member>
+        <member name="P:Ceeji.Delayed`1.IsValueFaulted">
+            <summary> 
+            Gets whether the value creation is faulted or not
+            </summary> 
+        </member>
+        <member name="P:Ceeji.Delayed`1.IsValueCreated">
+            <summary>Gets a value indicating whether the <see cref="T:Ceeji.Delayed{T}"> has been initialized. 
+            </see></summary> 
+            <value>true if the <see cref="T:Ceeji.Delayed{T}"> instance has been initialized;
+            otherwise, false.</see></value> 
+            <remarks>
+            The initialization of a <see cref="T:Ceeji.Delayed{T}"> instance may result in either
+            a value being produced or an exception being thrown.  If an exception goes unhandled during initialization,
+            the <see cref="T:Ceeji.Delayed{T}"> instance is still considered initialized, and that exception 
+            will be thrown on subsequent accesses to <see cref="P:Ceeji.Delayed`1.Value">.  In such cases, <see cref="P:Ceeji.Delayed`1.IsValueCreated">
+            will return true. 
+            </see></see></see></see></remarks> 
+        </member>
+        <member name="P:Ceeji.Delayed`1.Value">
+            <summary>Gets the lazily initialized value of the current <see cref="T:Ceeji.Delayed{T}">.</see></summary>
+            <value>The lazily initialized value of the current <see cref="T:Ceeji.Delayed{T}">.</see></value> 
+            <exception cref="T:System.MissingMemberException">
+            The <see cref="T:Ceeji.Delayed{T}"> was initialized to use the default constructor 
+            of the type being lazily initialized, and that type does not have a public, parameterless constructor. 
+            </see></exception>
+            <exception cref="T:System.MemberAccessException"> 
+            The <see cref="T:Ceeji.Delayed{T}"> was initialized to use the default constructor
+            of the type being lazily initialized, and permissions to access the constructor were missing.
+            </see></exception>
+            <exception cref="T:System.InvalidOperationException"> 
+            The <see cref="T:Ceeji.Delayed{T}"> was constructed with the <see cref="T:System.Threading.DelayThreadSafetyMode.ExecutionAndPublication"> or
+            <see cref="T:System.Threading.DelayThreadSafetyMode.None">  and the initialization function attempted to access <see cref="P:Ceeji.Delayed`1.Value"> on this instance. 
+            </see></see></see></see></exception> 
+            <remarks>
+            If <see cref="P:Ceeji.Delayed`1.IsValueCreated"> is false, accessing <see cref="P:Ceeji.Delayed`1.Value"> will force initialization. 
+            Please <see cref="!:System.Threading.DelayThreadSafetyMode"> for more information on how <see cref="T:Ceeji.Delayed{T}"> will behave if an exception is thrown
+            from initialization delegate.
+            </see></see></see></see></remarks>
+        </member>
+        <member name="M:Ceeji.Delayed`1.LazyInitValue">
+            <summary>
+            local helper method to initialize the value 
+            </summary>
+            <returns>The inititialized T value</returns>
+        </member>
+        <member name="M:Ceeji.Delayed`1.CreateValue">
+            <summary>Creates an instance of T using m_valueFactory in case its not null or use reflection to create a new T()</summary> 
+            <returns>An instance of Boxed.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Ceeji.System_LazyDebugView`1" -->
+        <!-- Badly formed XML comment ignored for member "M:Ceeji.System_LazyDebugView`1.#ctor(Ceeji.Delayed{`0})" -->
+        <member name="P:Ceeji.System_LazyDebugView`1.IsValueCreated">
+            <summary>Returns whether the Lazy object is initialized or not.</summary>
+        </member>
+        <member name="P:Ceeji.System_LazyDebugView`1.Value">
+            <summary>Returns the value of the Lazy object.</summary>
+        </member>
+        <member name="P:Ceeji.System_LazyDebugView`1.Mode">
+            <summary>Returns the execution mode of the Lazy object</summary> 
+        </member>
+        <member name="P:Ceeji.System_LazyDebugView`1.IsValueFaulted">
+            <summary>Returns the execution mode of the Lazy object</summary>
+        </member>
+        <member name="F:Ceeji.DelayThreadSafetyMode.None">
+            <summary>
+            Ceeji.Delayed 实例不是线程安全的；如果从多个线程访问该实例，则其行为不确定。 仅应在高性能至关重要并且保证决不会从多个线程初始化 Ceeji.Delayed 实例时才使用该模式。 如果使用指定初始化方法（valueFactory 参数）的 Ceeji.Delayed 构造函数，并且如果此初始化方法在您首次调用
+                Ceeji.Delayed.Value 属性时引发了一个异常（或无法处理异常），则会缓存该异常并在随后调用 Ceeji.Delayed.Value
+                属性时再次引发该异常。 如果您使用不指定初始化方法的 Ceeji.Delayed 构造函数，则不会缓存 T 默认构造函数引发的异常。 在此情况下，对
+                Ceeji.Delayed.Value 属性进行后续调用可成功初始化 Ceeji.Delayed 实例。 如果初始化方法递归访问 Ceeji.Delayed
+               实例的 Ceeji.Delayed.Value 属性，则引发 System.InvalidOperationException。
+            </summary>
+        </member>
+        <member name="F:Ceeji.DelayThreadSafetyMode.PublicationOnly">
+            <summary>
+            当多个线程尝试同时初始化一个 Ceeji.Delayed 实例时，允许所有线程都运行初始化方法（如果没有初始化方法，则为默认构造函数）。 完成初始化的第一个线程设置
+            Ceeji.Delayed 实例的值。 该值将返回给同时运行初始化方法的所有其他线程，除非该初始化方法对这些线程引发异常。 争用线程创建的任何
+             T 实例都将被丢弃。 如果初始化方法对任何线程引发异常，则该异常会从该线程上的 Ceeji.Delayed.Value 属性传播出去。 不缓存该异常。
+             Ceeji.Delayed.IsValueCreated 属性的值仍然为 false，并且随后通过其中引发异常的线程或通过其他线程对 Ceeji.Delayed.Value
+             属性的调用会导致初始化方法再次运行。 如果初始化方法递归访问 Ceeji.Delayed 实例的 Ceeji.Delayed.Value 属性，则不会引发异常。
+            </summary>
+        </member>
+        <member name="F:Ceeji.DelayThreadSafetyMode.ExecutionAndPublication">
+            <summary>
+                使用锁来确保只有一个线程可以在线程安全的方式下初始化 Ceeji.Delayed 实例。 如果初始化方法（如果没有初始化方法，则为默认构造函数）在内部使用锁，则可能会发生死锁。
+                如果使用指定初始化方法（valueFactory 参数）的 Ceeji.Delayed 构造函数，并且如果此初始化方法在您首次调用 Ceeji.Delayed.Value
+                属性时引发了一个异常（或无法处理异常），则会缓存该异常并在随后调用 Ceeji.Delayed.Value 属性时再次引发该异常。 如果您使用不指定初始化方法的
+                Ceeji.Delayed 构造函数，则不会缓存 T 默认构造函数引发的异常。 在此情况下，对 Ceeji.Delayed.Value 属性进行后续调用可成功初始化
+                Ceeji.Delayed 实例。 如果初始化方法递归访问 Ceeji.Delayed 实例的 Ceeji.Delayed.Value 属性，则引发
+                System.InvalidOperationException。
+            </summary>
+        </member>
+        <member name="T:Ceeji.Network.HttpHelper">
+            <summary>
+            用来简化 HTTP 请求和响应的方法集。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Network.HttpHelper.Get(System.Uri,Ceeji.Network.HttpHelper.HttpAsyncCompletedCallback{System.Byte[]},Ceeji.Network.HttpHelper.HttpAsyncProgressCallback)">
+            <summary>
+            使用 GET 方法异步获取某个特定 的 Uri 的资源，获取完成后无论成功还是失败，都将调用 HttpAsyncCompletedCallback 委托，并支持通过 HttpAsyncProgressCallback 报告下载进度。
+            </summary>
+            <param name="uri">要下载的资源。</param>
+            <param name="completedCallback">完成下载后要执行的委托。</param>
+            <param name="progressCallback">进度报告委托，可以为 null。</param>
+        </member>
+        <member name="T:Ceeji.Network.HttpHelper.HttpAsyncCompletedCallback`1">
+            <summary>
+            用于指示 Http 异步操作已经完成。
+            </summary>
+            <typeparam name="TData">指示操作结果的数据类型。</typeparam>
+            <param name="successful">指示操作是否成功完成并得到了数据。</param>
+            <param name="exception">返回操作中发生的异常，或者 null。</param>
+            <param name="result">获取操作结果。</param>
+        </member>
+        <member name="T:Ceeji.Network.HttpHelper.HttpAsyncProgressCallback">
+            <summary>
+            用于获取 Http 异步操作的进度。
+            </summary>
+            <param name="finishedSize"></param>
+            <param name="totalSize"></param>
+            <param name="percent"></param>
+        </member>
+        <member name="T:Ceeji.UI.DelayedAction">
+            <summary>
+            a class which represents one delayed action
+            </summary>
+            <remarks>
+            <para>When it is fired, the action will delay for some time and then be executed. </para>
+            <para>If user fire the action for more than one time in this period, this action will only be excuted once</para>
+            <para>The action and the WaitingTimeSpan parameters can be changed when StartWaiting being called with the same name twice</para>
+            </remarks>
+        </member>
+        <member name="M:Ceeji.UI.DelayedAction.StartWaiting(System.String,System.Action{System.Object},System.TimeSpan,System.Object)">
+            <summary>
+            Starts waiting for an action to excute. If action with same name be started more then one time in the period, the action will be excuted only once. This method is thread-safe
+            </summary>
+            <param name="name">The name for this action. Same action can only have one name</param>
+            <param name="action">A delegate to be excuted</param>
+            <param name="waitPeriod">A TimeSpan which represents the period to wait before action being excuted</param>
+            <param name="state">A state to be sent to the delegate</param>
+        </member>
+        <member name="M:Ceeji.UI.DelayedAction.StartWaiting(System.String,System.Action,System.TimeSpan,System.Object)">
+            <summary>
+            Starts waiting for an action to excute. If action with same name be started more then one time in the period, the action will be excuted only once. This method is thread-safe
+            </summary>
+            <param name="name">The name for this action. Same action can only have one name</param>
+            <param name="action">A delegate to be excuted</param>
+            <param name="waitPeriod">A TimeSpan which represents the period to wait before action being excuted</param>
+            <param name="state">A state to be sent to the delegate</param>
+        </member>
+        <member name="P:Ceeji.UI.DelayedAction.Name">
+            <summary>
+            Gets the name of this action
+            </summary>
+        </member>
+        <member name="P:Ceeji.UI.DelayedAction.Action">
+            <summary>
+            Gets the delegate to be excuted
+            </summary>
+        </member>
+        <member name="P:Ceeji.UI.DelayedAction.WaitingTime">
+            <summary>
+            Gets the TimeSpan before excuting action
+            </summary>
+        </member>
+        <member name="P:Ceeji.UI.DelayedAction.State">
+            <summary>
+            Gets the State
+            </summary>
+        </member>
+        <member name="T:Ceeji.UI.ObjectDisplayWrapper`1">
+            <summary>
+            一个对象显示包装，用于在列表框、组合框等各种使用对象的 ToString 方法显示文本的地方，以及需要 Debug 实时查看数据的地点，以便方便显示对象的名称或内容，同时保留对象的引用。
+            </summary>
+            <typeparam name="T">对象的类型。</typeparam>
+        </member>
+        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0)">
+            <summary>
+            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其为 null，则使用对象的 ToString() 方法来显示其名称。
+            </summary>
+            <param name="obj">要包装的对象。</param>
+        </member>
+        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0,System.Func{`0,System.String})">
+            <summary>
+            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。尝试使用指定的格式化委托进行格式化，或（如果为 null）使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其也为 null，则使用对象的 ToString() 方法来显示其名称。
+            </summary>
+            <param name="obj">要包装的对象。</param>
+            <param name="textFormatter">要使用的文本格式化器。</param>
+        </member>
+        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.#ctor(`0,System.String)">
+            <summary>
+            创建 <see cref="T:Ceeji.UI.ObjectDisplayWrapper`1"/> 的新实例。
+            </summary>
+            <param name="obj">要包装的对象。</param>
+            <param name="displayText">要显示的文本。</param>
+        </member>
+        <member name="M:Ceeji.UI.ObjectDisplayWrapper`1.ToString">
+            <summary>
+            返回代表被包装对象名称或内容的文本，具体返回内容根据 DisplayText 而定。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.Object">
+            <summary>
+            返回所关联的对象。
+            </summary>
+        </member>
+        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.DisplayText">
+            <summary>
+            设置显示文本。如果为 null，尝试使用对象的 ObjectDisplayFormatter 的默认格式化委托进行格式化，如果其为 null，则使用对象的 ToString() 方法来显示其名称。
+            </summary>
+        </member>
+        <member name="P:Ceeji.UI.ObjectDisplayWrapper`1.TextFormatter">
+            <summary>
+            返回或设置文本格式化器。如果为 null，则使用默认值。
+            </summary>
+        </member>
+        <member name="T:Ceeji.UI.ObjectDisplayDefaultFormatter`1">
+            <summary>
+            用于存取对于特定类型的对象如何格式化显示的默认实现的静态类。
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Ceeji.UI.ObjectDisplayDefaultFormatter`1.TextFormatter">
+            <summary>
+            设置或返回指定类型的默认显示文本格式化器。
+            </summary>
+        </member>
         <member name="T:Ceeji.Log.EventLogger">
             <summary>
             代表一个事件记录器。此记录器将记录下应用程序发生的错误。该线程和所有相关类、操作都是线程安全的。你也可以继承并实现新的 Ceeji.Log.LogWriter 个性化输出方式。
@@ -1868,6 +1784,11 @@
             创建 Ceeji.EventLogger 的一个新实例。
             </summary>
             <param name="writers">要使用的输出方式。</param>
+        </member>
+        <member name="P:Ceeji.Log.EventLogger.LogWriters">
+            <summary>
+            获取所有的日志输出器。
+            </summary>
         </member>
         <member name="M:Ceeji.Log.EventLogger.AddLogWriter(Ceeji.Log.LogWriter)">
             <summary>
@@ -1896,7 +1817,7 @@
             <summary>
             记录信息。此方法对性能有略微影响，一般情况下都可以使用。如果结合使用 LogFilter 功能，则不必担心循环中大量的 Debug 信息输出，则此方式记录日志可能是性价比最高、最好的方式。
             </summary>
-            <param name="message">要记录的消息。</param>
+            <param name="exception">要记录的消息。</param>
         </member>
         <member name="M:Ceeji.Log.EventLogger.Fatal(System.Exception)">
             <summary>
@@ -1911,6 +1832,12 @@
             <param name="message">要记录的消息。</param>
         </member>
         <member name="M:Ceeji.Log.EventLogger.Warning(System.String)">
+            <summary>
+            记录信息。此方法对性能有略微影响，一般情况下都可以使用。如果结合使用 LogFilter 功能，则不必担心循环中大量的 Debug 信息输出，则此方式记录日志可能是性价比最高、最好的方式。
+            </summary>
+            <param name="message">要记录的消息。</param>
+        </member>
+        <member name="M:Ceeji.Log.EventLogger.Warning(System.Exception,System.String)">
             <summary>
             记录信息。此方法对性能有略微影响，一般情况下都可以使用。如果结合使用 LogFilter 功能，则不必担心循环中大量的 Debug 信息输出，则此方式记录日志可能是性价比最高、最好的方式。
             </summary>
@@ -1933,6 +1860,11 @@
             记录日志。
             </summary>
             <param name="message">要记录的消息。</param>
+        </member>
+        <member name="P:Ceeji.Log.EventLogger.LogLevel">
+            <summary>
+            最低日志级别。低于此级别的将不被记录。
+            </summary>
         </member>
         <member name="M:Ceeji.Log.EventLogger.Debug(System.String,System.Reflection.MethodInfo)">
             <summary>
@@ -1974,7 +1906,7 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:Ceeji.Log.EventLogger.Warning(System.String,System.String,System.String,System.String)">
+        <member name="M:Ceeji.Log.EventLogger.Warning(System.String,System.String,System.String,System.String,System.Exception)">
             <summary>
             记录警告信息。此方法在极端重视性能的情况下使用。
             </summary>
@@ -2003,16 +1935,6 @@
             记录错误信息。此方法在极端重视性能的情况下使用。
             </summary>
             <param name="message"></param>
-        </member>
-        <member name="P:Ceeji.Log.EventLogger.LogWriters">
-            <summary>
-            获取所有的日志输出器。
-            </summary>
-        </member>
-        <member name="P:Ceeji.Log.EventLogger.LogLevel">
-            <summary>
-            最低日志级别。低于此级别的将不被记录。
-            </summary>
         </member>
         <member name="T:Ceeji.Log.LoggingException">
             <summary>
@@ -2071,6 +1993,11 @@
             <param name="msg"></param>
             <param name="exception"></param>
         </member>
+        <member name="P:Ceeji.Log.LogWriter.IsPrepared">
+            <summary>
+            指示是否已经准备好进行日志输出。
+            </summary>
+        </member>
         <member name="M:Ceeji.Log.LogWriter.GetExceptionDetailMessage(System.Exception)">
             <summary>
             获取异常的详细信息。
@@ -2081,11 +2008,6 @@
         <member name="M:Ceeji.Log.LogWriter.OnPrepare">
             <summary>
             在派生类中重写，实现准备日志。此方法保证只调用一次。如果准备失败，请抛出异常。
-            </summary>
-        </member>
-        <member name="P:Ceeji.Log.LogWriter.IsPrepared">
-            <summary>
-            指示是否已经准备好进行日志输出。
             </summary>
         </member>
         <member name="T:Ceeji.Log.SingleFileLogger">
@@ -2110,6 +2032,145 @@
             <summary>
             获取或设置文件路径。
             </summary>
+        </member>
+        <member name="T:System.IEnumerableExt">
+            <summary>
+            提供对列表、可枚举对象和集合的迭代方法。
+            </summary>
+        </member>
+        <member name="M:System.IEnumerableExt.ToGeneric(System.Collections.IEnumerable)">
+            <summary>
+            将指定的 IEnumerable 对象转换为 IEnumerable&lt;object&gt; 对象，以便利用泛型的速度和丰富的扩展方法。 
+            </summary>
+            <param name="who">指定要转换的 IEnumerable 对象。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.Iterate``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            在指定的元素中运行迭代函数。返回对象本身，便于执行进一步操作。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="act">要执行的迭代委托。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.First``1(System.Collections.IEnumerable)">
+            <summary>
+            返回类型为 <typeparamref name="T"/> 的第一项。
+            </summary>
+            <typeparam name="T">要返回的类型。</typeparam>
+            <returns>返回类型为 <typeparamref name="T"/> 的第一项。</returns>
+        </member>
+        <member name="M:System.IEnumerableExt.First``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            返回类型为 <typeparamref name="T"/> 的第一项。
+            </summary>
+            <typeparam name="T">要返回的类型。</typeparam>
+            <returns>返回类型为 <typeparamref name="T"/> 的第一项。</returns>
+        </member>
+        <member name="M:System.IEnumerableExt.FindAll``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            在指定的元素中运行迭代函数。返回一个枚举数，包括所有委托返回 true 的对象。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="func">要执行的迭代委托。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.Iterate``1(System.Collections.Generic.IList{``0},System.Action{``0,System.Int32})">
+            <summary>
+            在指定的列表中运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="act">要执行的迭代委托。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.FindAll``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Int32,System.Boolean})">
+            <summary>
+            在指定的列表中运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="func">要执行的迭代委托。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.ParallelIterate``1(System.Collections.Generic.IList{``0},System.Action{``0,System.Int32})">
+            <summary>
+            在指定的列表中并行运行迭代函数，并可以获知当前迭代位置。返回对象本身，便于执行进一步操作。【需要 .NET Framework 4，否则返回 NotSupportedException】
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="func">要执行的迭代委托。</param>
+            <exception cref="T:System.NotSupportedException"></exception>
+        </member>
+        <member name="M:System.IEnumerableExt.Fill(System.Collections.IList,System.Object)">
+            <summary>
+            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="val">要填充的值。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.Fill``1(System.Collections.Generic.IList{``0},``0)">
+            <summary>
+            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。对于引用类型，这可能导致所有的元素都是同一个元素的引用。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="val">要填充的值。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.Fill``1(System.Collections.Generic.IList{``0},System.Func{System.Int32,``0})">
+            <summary>
+            填充指定的列表的每一项。返回对象本身，便于执行进一步操作。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="val">要填充的值。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.WithIndex``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            返回 IList 的带有索引的包装。
+            </summary>
+            <param name="who">要为哪个可迭代对象执行迭代。</param>
+            <param name="val">要填充的值。</param>
+        </member>
+        <member name="M:System.IEnumerableExt.ToMultidimensionalArray``1(``0[][])">
+            <summary>
+            将指定的“数组的数组”转换为多维数组。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IEnumerableExt.ToMultidimensionalArray``1(System.Collections.Generic.IList{``0[]})">
+            <summary>
+            将指定的“数组的数组”转换为多维数组。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StreamExt.Write(System.IO.Stream,System.Byte[],System.Boolean)">
+            <summary>
+            写指定的 buffer 的全部数据到流中。允许直接刷新缓冲区。
+            </summary>
+            <param name="s">要写入的流。</param>
+            <param name="buffer">要写入的数据。</param>
+            <param name="flush">是否在写入后刷新缓冲区。</param>
+        </member>
+        <member name="M:System.StreamExt.WriteWithEncoding(System.IO.Stream,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            写指定的字符串数据到流中。允许直接刷新缓冲区。
+            </summary>
+            <param name="content">要写入的流。</param>
+            <param name="encode">字符编码，默认为 UTF-8。</param>
+            <param name="flush">是否在写入后刷新缓冲区。</param>
+        </member>
+        <member name="M:System.StreamExt.Write(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            写指定的字符串数据到流中。允许直接刷新缓冲区。
+            </summary>
+            <param name="content">要写入的流。</param>
+            <param name="flush">是否在写入后刷新缓冲区。</param>
+        </member>
+        <member name="M:System.NullableExt.BooleanSelect``1(System.Nullable{System.Boolean},``0,``0,``0)">
+            <summary>
+            针对 bool? 类型的三种状态分别返回不同的值。
+            </summary>
+            <typeparam name="T">值的类型。</typeparam>
+            <param name="v">bool? 类型的值</param>
+            <param name="valTrue">值为 true 时返回的内容</param>
+            <param name="valFalse">值为 false 时返回的内容</param>
+            <param name="valNull">值为 null 时返回的内容</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

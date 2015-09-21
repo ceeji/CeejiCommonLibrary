@@ -42,12 +42,10 @@ namespace Ceeji.Log.Redis
                 };
 
                 var json = JsonConvert.SerializeObject(obj);
-
-                var database = mMultiplexer.GetDatabase(Database);
-                database.ListLeftPush("fastlog", json);
-
-                while (database.ListLength("fastlog") > mMaxCount) {
-                    database.ListRightPop("fastlog");
+                provider.ListLeftPushAsync("fastlog", json);
+                var count = provider.ListLength("fastlog") - mMaxCount;
+                for (var i = 0; i < count; ++i) {
+                    provider.ListRightPopAsync("fastlog");
                 }
             }
             catch (Exception ex) {
@@ -57,24 +55,8 @@ namespace Ceeji.Log.Redis
         }
 
         protected override void OnPrepare() {
-            if (mLogWriter != null) {
-                try {
-                    mLogWriter.Close();
-                }
-                catch { }
-            }
-            if (mMultiplexer != null) {
-                try {
-                    mMultiplexer.Close();
-                }
-                catch { }
-            }
-
-            try {
-                mLogWriter = mPathForLog != null ? new StreamWriter(mPathForLog, true) : null;
-            }
-            catch { }
-            mMultiplexer = ConnectionMultiplexer.Connect(RedisServerAddress + ",abortConnect=false", mLogWriter);
+            provider = new Caching.RedisBoostCachingProvider(RedisServerAddress);
+            //mMultiplexer = ConnectionMultiplexer.Connect(RedisServerAddress + ",abortConnect=false", mLogWriter);
         }
 
         /// <summary>
@@ -84,9 +66,7 @@ namespace Ceeji.Log.Redis
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<RedisLog> GetLogs(int start, int count) {
-            var database = mMultiplexer.GetDatabase(Database);
-
-            var ret = database.ListRange("fastlog", start, start + count - 1);
+            var ret = provider.ListRange("fastlog", start, start + count - 1);
 
             foreach (var item in ret) {
                 yield return JsonConvert.DeserializeObject<RedisLog>(item.ToString());
@@ -112,10 +92,11 @@ namespace Ceeji.Log.Redis
             public string msg { get; set; }
         }
 
-        private ConnectionMultiplexer mMultiplexer;
+        //private ConnectionMultiplexer mMultiplexer;
+        private Caching.CachingProvider provider;
         private Newtonsoft.Json.JsonSerializer mSerializer = new Newtonsoft.Json.JsonSerializer();
         private string mPathForLog;
-        private int mMaxCount = 20000;
+        private int mMaxCount = 40000;
         private StreamWriter mLogWriter;
     }
 }
