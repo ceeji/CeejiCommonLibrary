@@ -1374,7 +1374,7 @@
         </member>
         <member name="T:Ceeji.Data.RandomHelper">
             <summary>
-            提供对随机变量的支持。此类中的方法目前不保证线程安全。
+            提供对随机变量的支持。此类中的方法保证线程安全。
             </summary>
         </member>
         <member name="M:Ceeji.Data.RandomHelper.NextStrongRandomString(System.Int32)">
@@ -1438,18 +1438,48 @@
             <param name="min">最小值。</param>
             <returns></returns>
         </member>
-        <member name="M:Ceeji.Data.RandomHelper.RandomInt">
-            <summary>
-            产生非负随机数。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ceeji.Data.RandomHelper.RandomInt(System.Int32,System.Int32)">
+        <member name="M:Ceeji.Data.RandomHelper.NextRandomDouble">
             <summary>
             产生非负随机数。
             </summary>
             <param name="max">最大值，该值不会被取到。</param>
             <param name="min">最小值。</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ceeji.Data.ThreadSafeRandom">
+            <summary>
+            提供一个线程安全的 Random 实现。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Data.ThreadSafeRandom.#ctor">
+            <summary>
+            初始化 <see cref="T:Ceeji.Data.ThreadSafeRandom"/> 的新实例。
+            </summary>
+        </member>
+        <member name="M:Ceeji.Data.ThreadSafeRandom.Next">
+            <summary>
+            返回一个整数随机数。此方法是线程安全的。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.ThreadSafeRandom.Next(System.Int32,System.Int32)">
+            <summary>
+            返回指定范围内的随机数。
+            </summary>
+            <param name="min">最小值。</param>
+            <param name="max">必须大于等于 min，且返回结果不会包含 max。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.ThreadSafeRandom.NextDouble">
+            <summary>
+            返回 0和1 之间的随机数。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Data.ThreadSafeRandom.NextBytes(System.Byte[])">
+            <summary>
+            返回 0和1 之间的随机数。
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Ceeji.Data.StringExt">
@@ -1999,6 +2029,13 @@
             </summary>
         </member>
         <member name="M:Ceeji.Log.LogWriter.GetExceptionDetailMessage(System.Exception)">
+            <summary>
+            获取异常的详细信息。
+            </summary>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ceeji.Log.LogWriter.GetExceptionDetailMessage(System.Exception,System.Boolean)">
             <summary>
             获取异常的详细信息。
             </summary>

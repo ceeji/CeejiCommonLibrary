@@ -131,6 +131,7 @@ namespace Ceeji.FastWeb {
             writer.Write("</html>");
             if (format == HtmlOutputFormat.Indent)
                 writer.WriteLine();
+
             writer.Flush();
         }
 

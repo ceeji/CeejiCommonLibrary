@@ -1,0 +1,7 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Debug\Ceeji.DirectCall.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Debug\Ceeji.DirectCall.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Debug\Ceeji.DirectCall.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Debug\Ceeji.DirectCall.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Debug\Ceeji.DirectCall.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Debug\CeejiCommonLibaray.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Debug\CeejiCommonLibaray.pdb

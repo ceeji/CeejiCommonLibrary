@@ -39,10 +39,11 @@ namespace Ceeji.Caching {
         /// <summary>
         /// initalize a new instance of <see cref="Ceeji.Caching.RedisBoostCachingProvider"/> with host and port property.
         /// </summary>
-        public RedisBoostCachingProvider(string host, int port, int database) : this() {
+        public RedisBoostCachingProvider(string host, int port, int database, string password = null) : this() {
             Host = host;
             Port = port;
             Database = database;
+            Password = password;
 
             OnRestoreEnvironment().Wait();
         }
@@ -61,6 +62,8 @@ namespace Ceeji.Caching {
         /// Gets or sets the database of the redis server, default 0
         /// </summary>
         public int Database { get; set; } = 0;
+
+        public string Password { get; set; } = null;
 
         #endregion
 
@@ -86,6 +89,8 @@ namespace Ceeji.Caching {
                     }
 
                     client = await RedisBoost.RedisClient.ConnectAsync(Host, Port, Database);
+                    if (Password != null)
+                        await client.AuthAsync(Password); // TODO 没有校验密码的正确性
                 }
                 catch { }
             }
@@ -264,6 +269,24 @@ namespace Ceeji.Caching {
                 return ret;
             }
         }
+
+        protected override async Task<string> OnBRightPopAsync(string key, int secondsToWait) {
+            using (rwLock.ReaderLock()) {
+                var bulk = await client.BrPopAsync(secondsToWait, key);
+                if (bulk.Length != 2)
+                    return null;
+
+                return bulk.Skip(1).First().As<string>();
+            }
+        }
+
+        public override void ListTrimForget(string key, int start, int count) {
+            using (rwLock.ReaderLock()) {
+                client.LTrimAsync(key, start, start + count - 1);
+            }
+        }
+
+
         #endregion
     }
 }

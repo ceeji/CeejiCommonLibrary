@@ -7,3 +7,12 @@ D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\R
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\CeejiCommonLibaray.pdb
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\CeejiCommonLibaray.xml
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\Ceeji.Testing.XML
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\Ceeji.Testing.XML
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\Ceeji.Testing.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\Ceeji.Testing.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\CeejiCommonLibaray.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\CeejiCommonLibaray.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\bin\Release\CeejiCommonLibaray.xml
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Release\Ceeji.Testing.csprojResolveAssemblyReference.cache
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Release\Ceeji.Testing.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Testing\obj\Release\Ceeji.Testing.pdb

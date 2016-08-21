@@ -11,3 +11,6 @@ D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\D
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\Nito.AsyncEx.xml
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\Nito.AsyncEx.Concurrent.xml
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\Nito.AsyncEx.Enlightenment.xml
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\StackExchange.Redis.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\StackExchange.Redis.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.Caching\bin\Debug\StackExchange.Redis.xml

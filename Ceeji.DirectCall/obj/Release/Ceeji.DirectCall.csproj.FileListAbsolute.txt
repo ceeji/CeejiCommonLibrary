@@ -1,0 +1,16 @@
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\Ceeji.DirectCall.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\Ceeji.DirectCall.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.csprojResolveAssemblyReference.cache
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.dll
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.pdb
+D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.xml
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\Ceeji.DirectCall.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\Ceeji.DirectCall.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\bin\Release\CeejiCommonLibaray.xml
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.csprojResolveAssemblyReference.cache
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.DirectCall\obj\Release\Ceeji.DirectCall.pdb

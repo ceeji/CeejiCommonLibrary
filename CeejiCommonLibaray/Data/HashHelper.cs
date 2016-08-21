@@ -271,9 +271,13 @@ namespace Ceeji.Data {
             return SHA256(password + salt);
         }
 
+        [ThreadStatic]
         private static SHA256 objSHA256 = null;
+        [ThreadStatic]
         private static SHA512 objSHA512 = null;
+        [ThreadStatic]
         private static SHA1 objSHA1 = null;
+        [ThreadStatic]
         private static MD5 objMD5 = null;
         private static Encoding mEncodingDefault = Encoding.UTF8;
 

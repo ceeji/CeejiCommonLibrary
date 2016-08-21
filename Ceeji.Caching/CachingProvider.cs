@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,18 @@ namespace Ceeji.Caching {
         public Task SetAddAsync(string key, params string[] value) {
             return tryDoCommand(() => OnSetAddAsync(key, value));
         }
+
+        /// <summary>
+        /// Get the right value of a list, and block if it is empty
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="secondsToWait">time to wait, in seconds</param>
+        /// <returns></returns>
+        public Task<string> BRightPopAsync(string key, int secondsToWait = 30) {
+            return tryDoCommand(() => OnBRightPopAsync(key, secondsToWait));
+        }
+
+        protected abstract Task<string> OnBRightPopAsync(string key, int secondsToWait);
 
         public Task<long> SetLengthAsync(string key) {
             return tryDoCommand(() => OnSetLengthAsync(key));
@@ -99,6 +112,10 @@ namespace Ceeji.Caching {
         /// <param name="key"></param>
         /// <returns></returns>
         public string StringGet(string key) {
+            return OnStringGet(key);
+        }
+
+        protected virtual string OnStringGet(string key) {
             string ret = null;
             Task.Run(async () => { ret = await tryDoCommand(() => OnStringGetAsync(key)); }).Wait();
             return ret;
@@ -119,6 +136,8 @@ namespace Ceeji.Caching {
         public Task SetAsync(string key, string val, bool canReplace) {
             return tryDoCommand(() => OnSet(key, val, canReplace ));
         }
+
+        public abstract void ListTrimForget(string key, int start, int count);
 
         public Task SetAsync(string key, byte[] val, bool canReplace) {
             return tryDoCommand(() => OnSet(key, val, canReplace));
@@ -247,7 +266,13 @@ namespace Ceeji.Caching {
                     await command();
                     return;
                 }
-                catch {
+                catch (Exception ex) {
+                    // 如果出错，记录一个特殊的日志
+                    try {
+                        File.AppendAllText("cachingProvider.debug.log", "[" + DateTime.Now + "] " + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine);
+                    }
+                    catch { }
+
                     if (now == -1)
                         now = Environment.TickCount;
 
@@ -258,17 +283,23 @@ namespace Ceeji.Caching {
                     try {
                         await OnRestoreEnvironment();
                     }
-                    catch { }
+                    catch (Exception exx) {
+                        // 如果出错，记录一个特殊的日志
+                        try {
+                            File.AppendAllText("cachingProvider.debug.log", "[" + DateTime.Now + "] " + exx.Message + Environment.NewLine + exx.StackTrace + Environment.NewLine);
+                        }
+                        catch { }
+                    }
                 }
             }
         }
 
-        private async Task<T> tryDoCommand<T>(Func<Task<T>> command) {
+        protected virtual Task<T> tryDoCommand<T>(Func<Task<T>> command) {
             var now = -1;
 
             while (true) {
                 try {
-                    return await command();
+                    return command();
                 }
                 catch {
                     if (now == -1)
@@ -279,7 +310,7 @@ namespace Ceeji.Caching {
 
                     // restore
                     try {
-                        await OnRestoreEnvironment();
+                        OnRestoreEnvironment().Wait();
                     }
                     catch { }
                 }

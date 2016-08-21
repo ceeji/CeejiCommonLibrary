@@ -9,7 +9,7 @@ namespace Ceeji.Data {
     /// 代表一个简单的，线程安全的对象池对象。
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ObjectPool<T> where T : class {
+    public class ObjectPool<T> : IDisposable where T : class {
         #region Constructors
         /// <summary>
         /// 创建 <see cref="ObjectPool{T}"/> 的新实例。此实例具有默认的最小、最大池中成员数量。
@@ -18,6 +18,8 @@ namespace Ceeji.Data {
         public ObjectPool(Func<T> createFactory)
             : this(createFactory, ObjectPool<T>.DefaultMinCount, ObjectPool<T>.DefaultMaxCount) {
         }
+
+
 
         /// <summary>
         /// 创建 <see cref="ObjectPool{T}"/> 的新实例。
@@ -172,7 +174,7 @@ namespace Ceeji.Data {
         /// <returns></returns>
         public PooledObject<T> Get() {
             if (mCountInBag == 0) { // 如果目前没有可用元素
-                Console.WriteLine("Getting New Element, Now have " + this.mCountInBag + " Elements");
+                //Console.WriteLine("Getting New Element, Now have " + this.mCountInBag + " Elements");
                 return createObject();
             }
 
@@ -188,7 +190,7 @@ namespace Ceeji.Data {
 
             if (ret != null) {
                 Interlocked.Decrement(ref this.mCountInBag);
-                Console.WriteLine("Getting Exsits Element, Now have " + this.mCountInBag + " Elements");
+                //Console.WriteLine("Getting Exsits Element, Now have " + this.mCountInBag + " Elements");
                 return ret;
             }
 
@@ -238,6 +240,42 @@ namespace Ceeji.Data {
         private object mLockBag = new object();
         private volatile int mCountInBag = 0;
         private object mLockProp = new object();
+
+        #region IDisposable Support
+        private bool disposedValue = false; // 要检测冗余调用
+
+        protected virtual void Dispose(bool disposing) {
+            if (!disposedValue) {
+                if (disposing) {
+                    // TODO: 释放托管状态(托管对象)。
+                    lock (mLockBag) {
+                        foreach (var i in mBag) {
+                            releaseObject(i);
+                        }
+                    }
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
+                // TODO: 将大型字段设置为 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
+        // ~ObjectPool() {
+        //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+        //   Dispose(false);
+        // }
+
+        // 添加此代码以正确实现可处置模式。
+        public void Dispose() {
+            // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
 
         #endregion
     }

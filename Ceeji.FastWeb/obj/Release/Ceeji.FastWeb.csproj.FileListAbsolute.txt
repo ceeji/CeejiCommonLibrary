@@ -9,3 +9,14 @@ D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\R
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Newtonsoft.Json.dll
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Newtonsoft.Json.xml
 D:\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Ceeji.FastWeb.XML
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Ceeji.FastWeb.XML
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Ceeji.FastWeb.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Ceeji.FastWeb.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\CeejiCommonLibaray.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Newtonsoft.Json.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\CeejiCommonLibaray.pdb
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\CeejiCommonLibaray.xml
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\bin\Release\Newtonsoft.Json.xml
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Release\Ceeji.FastWeb.csprojResolveAssemblyReference.cache
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Release\Ceeji.FastWeb.dll
+Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\Ceeji.FastWeb\obj\Release\Ceeji.FastWeb.pdb

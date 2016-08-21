@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Ceeji.Data {
     /// <summary>
-    /// 提供对随机变量的支持。此类中的方法目前不保证线程安全。
+    /// 提供对随机变量的支持。此类中的方法保证线程安全。
     /// </summary>
-    public class RandomHelper {
-        public RandomHelper() {
-            rr = new Random();
-        }
-
+    public static class RandomHelper {
         /// <summary>
         /// 产生一个强完全随机的字符串。这种变量在加密中是安全的，和传统的随机数生成方法不同。
         /// </summary>
@@ -52,10 +49,8 @@ namespace Ceeji.Data {
         /// <returns></returns>
         public static byte[] NextWeakRandomByteArray(int length) {
             byte[] buffer = new byte[length];
-
-            for (var i = 0; i < buffer.Length; ++i)
-                buffer[i] = (byte)NextRandomInt(0, 256);
-
+            r.NextBytes(buffer);
+            
             return buffer;
         }
 
@@ -108,10 +103,6 @@ namespace Ceeji.Data {
         /// </summary>
         /// <returns></returns>
         public static int NextRandomInt() {
-            if (r == null) {
-                r = new Random();
-            }
-
             return r.Next();
         }
 
@@ -122,19 +113,7 @@ namespace Ceeji.Data {
         /// <param name="min">最小值。</param>
         /// <returns></returns>
         public static int NextRandomInt(int min, int max) {
-            if (r == null) {
-                r = new Random();
-            }
-
             return r.Next(min, max);
-        }
-
-        /// <summary>
-        /// 产生非负随机数。
-        /// </summary>
-        /// <returns></returns>
-        public int RandomInt() {
-            return rr.Next();
         }
 
         /// <summary>
@@ -143,13 +122,76 @@ namespace Ceeji.Data {
         /// <param name="max">最大值，该值不会被取到。</param>
         /// <param name="min">最小值。</param>
         /// <returns></returns>
-        public int RandomInt(int min, int max) {
-            return rr.Next(min, max);
+        public static double NextRandomDouble() {
+            return r.NextDouble();
         }
 
+        [ThreadStatic]
         private static RandomNumberGenerator rdGenerator = null;
         private const string randomString = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static Random r = null;
-        private Random rr;
+        private static ThreadSafeRandom r = new ThreadSafeRandom();
+    }
+
+    /// <summary>
+    /// 提供一个线程安全的 Random 实现。
+    /// </summary>
+    public class ThreadSafeRandom {
+        private static readonly Random _global = new Random();
+        [ThreadStatic]
+        private static Random _local;
+
+        /// <summary>
+        /// 初始化 <see cref="ThreadSafeRandom"/> 的新实例。
+        /// </summary>
+        public ThreadSafeRandom() {
+            createLocal();
+        }
+        /// <summary>
+        /// 返回一个整数随机数。此方法是线程安全的。
+        /// </summary>
+        /// <returns></returns>
+        public int Next() {
+            createLocal();
+            return _local.Next();
+        }
+
+        /// <summary>
+        /// 返回指定范围内的随机数。
+        /// </summary>
+        /// <param name="min">最小值。</param>
+        /// <param name="max">必须大于等于 min，且返回结果不会包含 max。</param>
+        /// <returns></returns>
+        public int Next(int min, int max) {
+            createLocal();
+            return _local.Next(min, max);
+        }
+
+        /// <summary>
+        /// 返回 0和1 之间的随机数。
+        /// </summary>
+        /// <returns></returns>
+        public double NextDouble() {
+            createLocal();
+            return _local.NextDouble();
+        }
+
+        /// <summary>
+        /// 返回 0和1 之间的随机数。
+        /// </summary>
+        /// <returns></returns>
+        public void NextBytes(byte[] buffer) {
+            createLocal();
+            _local.NextBytes(buffer);
+        }
+
+        private void createLocal() {
+            if (_local == null) {
+                int seed;
+                lock (_global) {
+                    seed = _global.Next();
+                }
+                _local = new Random(seed);
+            }
+        }
     }
 }

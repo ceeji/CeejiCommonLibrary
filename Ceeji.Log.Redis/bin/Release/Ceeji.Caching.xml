@@ -35,6 +35,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Ceeji.Caching.CachingProvider.BRightPopAsync(System.String,System.Int32)">
+            <summary>
+            Get the right value of a list, and block if it is empty
+            </summary>
+            <param name="key"></param>
+            <param name="secondsToWait">time to wait, in seconds</param>
+            <returns></returns>
+        </member>
         <member name="M:Ceeji.Caching.CachingProvider.KeyExistsAsync(System.String)">
             <summary>
             Check if a key is exists in the database
@@ -118,7 +126,7 @@
             initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host and port property.
             </summary>
         </member>
-        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor(System.String,System.Int32,System.Int32)">
+        <member name="M:Ceeji.Caching.RedisBoostCachingProvider.#ctor(System.String,System.Int32,System.Int32,System.String)">
             <summary>
             initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host and port property.
             </summary>
@@ -142,6 +150,20 @@
             <summary>
             A lock to make sure when the environment
             </summary>
+        </member>
+        <member name="M:Ceeji.Caching.StackExchangeRedisCachingProvider.#ctor(System.String)">
+            <summary>
+            initalize a new instance of <see cref="T:Ceeji.Caching.RedisBoostCachingProvider"/> with host property.
+            </summary>
+            <param name="connection_string">the connection string, e.g. 127.0.0.1,abortConnect=false</param>
+        </member>
+        <member name="M:Ceeji.Caching.StackExchangeRedisCachingProvider.OnBRightPopAsync(System.String,System.Int32)">
+            <summary>
+            This method is not supported
+            </summary>
+            <param name="key"></param>
+            <param name="secondsToWait"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

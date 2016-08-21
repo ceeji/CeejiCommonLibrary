@@ -49,9 +49,14 @@ namespace Ceeji.Log {
                     OnWriteLog(time, assembly, runningClass, runningMethod, type, msg, exception);
                 }
             }
-            catch {
+            catch (Exception ex) {
+                if (ExceptionThrowed != null) {
+                    ExceptionThrowed(this, ex);
+                }
             }
         }
+
+        public event Action<object, Exception> ExceptionThrowed;
 
         /// <summary>
         /// 写日志。此方法的异常会被忽略。此方法保证不会并发调用。
@@ -79,9 +84,22 @@ namespace Ceeji.Log {
         /// <param name="ex"></param>
         /// <returns></returns>
         public static string GetExceptionDetailMessage(Exception ex) {
+            return GetExceptionDetailMessage(ex, true);
+        }
+
+        /// <summary>
+        /// 获取异常的详细信息。
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        public static string GetExceptionDetailMessage(Exception ex, bool containsTypeAndMessage = true) {
             if (ex == null)
                 return "";
-            return "==== Exception Descreption ====" + Environment.NewLine + ex.GetType().FullName + ": " + ex.Message + Environment.NewLine + "<< StackTrace >>" + Environment.NewLine + ex.StackTrace + Environment.NewLine + GetExceptionDetailMessage(ex.InnerException);
+            var moreInformation = "";
+            if (ex is TypeLoadException) {
+                moreInformation = "Type: " + (ex as TypeLoadException).TypeName;
+            }
+            return  (containsTypeAndMessage ? "==== Exception Descreption ====" + Environment.NewLine + (ex.GetType().FullName + ": " + ex.Message) : "" + moreInformation + Environment.NewLine) + "<< StackTrace >>" + Environment.NewLine + ex.StackTrace + Environment.NewLine + GetExceptionDetailMessage(ex.InnerException);
         }
 
         /// <summary>

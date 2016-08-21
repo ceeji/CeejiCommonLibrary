@@ -28,6 +28,12 @@ namespace Ceeji.Log {
             isShared = shareWithOthers;
         }
 
+        public class ExceptionEventArgs : EventArgs {
+            public Exception Exception { get; internal set; }
+        }
+
+        public event EventHandler<ExceptionEventArgs> ExceptionOccured;
+
         protected override void OnWriteLog(DateTime time, string assembly, string runningClass, string runningMethod, LogType type, string msg, Exception exception) {
             if (!isPrepared)
                 OnPrepare();
@@ -42,7 +48,8 @@ namespace Ceeji.Log {
                     mWriter.Flush();
                 }
             }
-            catch {
+            catch (Exception ex) {
+                ExceptionOccured?.Invoke(this, new ExceptionEventArgs() { Exception = ex });
             }
             finally {
                 if (isShared) {
@@ -61,8 +68,8 @@ namespace Ceeji.Log {
                 var fprmattedMessage = string.Format("[{0,8}]\t[{1}]\t[{2}]\t[{3}]\t[{4}]\t{5}\t{6}", type.ToString(), formattedTime, assembly, runningClass, runningMethod, msg, exception == null ? "" : GetExceptionDetailMessage(exception));
                 return fprmattedMessage;
             }
-            catch {
-                return "";
+            catch (Exception ex) {
+                throw;
             }
         }
 
@@ -92,7 +99,9 @@ namespace Ceeji.Log {
 
                 return null;
             }
-            catch {
+            catch (Exception ex) {
+                ExceptionOccured?.Invoke(this, new ExceptionEventArgs() { Exception = ex });
+
                 return null;
             }
         }
@@ -110,7 +119,8 @@ namespace Ceeji.Log {
                 if (mWriter != null)
                     isPrepared = true;
             }
-            catch {
+            catch (Exception ex) {
+                ExceptionOccured?.Invoke(this, new ExceptionEventArgs() { Exception = ex });
             }
         }
 

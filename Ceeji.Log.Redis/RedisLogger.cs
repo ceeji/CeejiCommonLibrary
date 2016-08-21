@@ -20,7 +20,7 @@ namespace Ceeji.Log.Redis
         /// </summary>
         /// <param name="redisServerAddress">Redis 服务器的地址。</param>
         /// <param name="database">数据库索引。</param>
-        public RedisLogger(string redisServerAddress, int database, int maxCount = 20000, string pathForLog = null) {
+        public RedisLogger(string redisServerAddress, int database, int maxCount = 40000, string pathForLog = null) {
             if (redisServerAddress == null || redisServerAddress == string.Empty || database < 0)
                 throw new ArgumentException("输入参数不符合要求");
 
@@ -28,34 +28,78 @@ namespace Ceeji.Log.Redis
             this.Database = database;
             this.mPathForLog = pathForLog;
             this.mMaxCount = maxCount;
+
+            Console.WriteLine($"Starting RedisLogger: {RedisServerAddress}:6379, database {database}");
         }
-        protected override void OnWriteLog(DateTime time, string assembly, string runningClass, string runningMethod, LogType type, string msg, Exception exception) {
+
+        public static string JsonSerialize(RedisLog obj) {
             try {
-                var obj = new {
+                /*if (isWindows)
+                    return Jil.JSON.Serialize(obj, options);
+                else*/
+                    return JsonConvert.SerializeObject(obj);
+            }
+            catch {
+                return JsonConvert.SerializeObject(obj);
+            }
+        }
+
+        public static RedisLog JsonDeserialize(string input, out bool success) {
+            success = true;
+
+            try {
+                /*if (isWindows) {
+                    var log = Jil.JSON.Deserialize<RedisLog>(input, options);
+                    log.time = log.time.ToLocalTime();
+                    return log;
+                }*/
+
+                return JsonConvert.DeserializeObject<RedisLog>(input);
+            }
+            catch (Exception ex) {
+                // 解析失败，直接返回
+                success = false;
+                return new RedisLog();
+            }
+        }
+
+        // private static Jil.Options options;
+        public static bool isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
+
+        protected override async void OnWriteLog(DateTime time, string assembly, string runningClass, string runningMethod, LogType type, string msg, Exception exception) {
+            try {
+                var obj = new RedisLog() {
                     time = time,
                     assembly = assembly,
                     obj = runningClass,
                     method = runningMethod,
                     type = type.ToString(),
                     msg = msg,
-                    exception = LogWriter.GetExceptionDetailMessage(exception)
+                    exception = GetExceptionDetailMessage(exception)
                 };
 
-                var json = JsonConvert.SerializeObject(obj);
+                var json = JsonSerialize(obj);
+
                 provider.ListLeftPushAsync("fastlog", json);
-                var count = provider.ListLength("fastlog") - mMaxCount;
-                for (var i = 0; i < count; ++i) {
-                    provider.ListRightPopAsync("fastlog");
-                }
+                provider.ListTrimForget("fastlog", 0, mMaxCount);
             }
             catch (Exception ex) {
-                mLogWriter.WriteLine(LogWriter.GetExceptionDetailMessage(ex)); mLogWriter.Flush();
+                mLogWriter?.WriteLine(GetExceptionDetailMessage(ex));
+                mLogWriter?.Flush();
                 this.OnPrepare();
             }
         }
 
         protected override void OnPrepare() {
-            provider = new Caching.RedisBoostCachingProvider(RedisServerAddress);
+            try {
+                provider = new Caching.StackExchangeRedisCachingProvider(RedisServerAddress + ",abortConnect=false");
+
+                if (isWindows) {
+                    //options = new Jil.Options(false, true, false, Jil.DateTimeFormat.MicrosoftStyleMillisecondsSinceUnixEpoch, true, Jil.UnspecifiedDateTimeKindBehavior.IsUTC);
+                }
+            }
+            catch { }
+            // = new Caching.RedisBoostCachingProvider(RedisServerAddress);
             //mMultiplexer = ConnectionMultiplexer.Connect(RedisServerAddress + ",abortConnect=false", mLogWriter);
         }
 
@@ -66,10 +110,14 @@ namespace Ceeji.Log.Redis
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<RedisLog> GetLogs(int start, int count) {
-            var ret = provider.ListRange("fastlog", start, start + count - 1);
+            var ret = provider.ListRange("fastlog", start, count);
+
+            bool success;
 
             foreach (var item in ret) {
-                yield return JsonConvert.DeserializeObject<RedisLog>(item.ToString());
+                var log = JsonDeserialize(item.ToString(), out success);
+                if (success)
+                    yield return log;
             }
         }
 
@@ -82,7 +130,7 @@ namespace Ceeji.Log.Redis
         /// </summary>
         public int Database { get; set; }
 
-        public class RedisLog {
+        public struct RedisLog {
             public DateTime time { get; set; }
             public string exception { get; set; }
             public string assembly { get; set; }
