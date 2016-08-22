@@ -10,3 +10,9 @@ Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiComm
 Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibrary.csprojResolveAssemblyReference.cache
 Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibaray.dll
 Y:\Documents\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibaray.pdb
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\bin\Release\CeejiCommonLibaray.XML
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\bin\Release\CeejiCommonLibaray.dll
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibrary.csprojResolveAssemblyReference.cache
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibaray.dll
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\obj\Release\CeejiCommonLibaray.pdb
+E:\Ceeji's\云同步\我的坚果云\dev-projects\CeejiCommonLibaray\CeejiCommonLibaray\bin\Release\CeejiCommonLibaray.pdb

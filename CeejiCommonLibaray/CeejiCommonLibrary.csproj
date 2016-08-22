@@ -63,6 +63,7 @@
     <Compile Include="DelayThreadSafetyMode.cs" />
     <Compile Include="Data\NullableExt.cs" />
     <Compile Include="Network\HttpHelper.cs" />
+    <Compile Include="ThrowHelper.cs" />
     <Compile Include="UI\DelayedAction.cs" />
     <Compile Include="UI\ObjectDisplayWrapper.cs" />
     <Compile Include="Data\RandomHelper.cs" />

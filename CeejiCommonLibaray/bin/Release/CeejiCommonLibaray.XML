@@ -1693,6 +1693,84 @@
             <param name="totalSize"></param>
             <param name="percent"></param>
         </member>
+        <member name="T:Ceeji.ThrowHelper">
+            <summary>
+            用于帮助进行参数检查的类。
+            </summary>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowNull(System.Object[])">
+            <summary>
+            如果参数为空，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.CheckRange(System.String,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            如果参数不符合范围要求，则抛出异常。
+            </summary>
+            <param name="value"></param>
+            <param name="min">最小值（含)</param>
+            <param name="max">最大值（含）</param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.CheckRange(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            如果参数不符合范围要求，则抛出异常。
+            </summary>
+            <param name="value"></param>
+            <param name="min">最小值（含)</param>
+            <param name="max">最大值（含）</param>int
+        </member>
+        <member name="M:Ceeji.ThrowHelper.InRange``1(System.String,``0,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            如果参数不在指定的值域中，则抛出异常。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="range"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowNull``1(System.String,``0)">
+            <summary>
+            如果参数为空，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowEmpty(System.String,System.String)">
+            <summary>
+            如果参数为 null 或空字符串，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowEmpty(System.String,System.String,System.String,System.String)">
+            <summary>
+            如果参数为 null 或空字符串，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowEmpty(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            如果参数为 null 或空字符串，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowEmpty(System.String[])">
+            <summary>
+            如果参数为 null 或空字符串，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowNull``2(System.String,``0,System.String,``1)">
+            <summary>
+            如果参数为空，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Ceeji.ThrowHelper.ThrowNull``3(System.String,``0,System.String,``1,System.String,``2)">
+            <summary>
+            如果参数为空，则抛出异常。
+            </summary>
+            <param name="arguments"></param>
+        </member>
         <member name="T:Ceeji.UI.DelayedAction">
             <summary>
             a class which represents one delayed action
