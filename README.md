@@ -1,5 +1,7 @@
 # CeejiCommonLibrary
 
+# NOTE: THIS PROJECT IS DISCONTINUED AND READ-ONLY.
+
 A thread-friendly, high-performance .NET common helper library with small submodules, mono support included, production-ready
 
 ## Production-ready Libraries
